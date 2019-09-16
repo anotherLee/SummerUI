@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/anotherLee/ViewUI/issues"
   },
-  "homepage": "https://github.com/anotherLee/ViewUI#readme"
+  "homepage": "https://github.com/anotherLee/ViewUI#readme",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
 }
