@@ -14,6 +14,12 @@ module.exports = {
     publicPath: '/'
   },
 
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.common.js',
+    }
+  },
+
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     compress: true,
