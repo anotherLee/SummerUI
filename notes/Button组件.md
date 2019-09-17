@@ -44,6 +44,18 @@
 6. 设置了`display: inline-flex` 之后，需要`vertical-align: top` 来使多个按键对齐
 
 7. **注意props要使用驼峰写法**
+
    - default
    - type
    - validator
+
+8. hover到某个按钮上面让它上去
+
+   ```css
+   &:hover {
+     position: relative;
+     z-index: 1;
+   }
+   ```
+
+   

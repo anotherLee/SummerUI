@@ -5,7 +5,17 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    mounted() {
+      let children = this.$el.children
+      for (let node of children) {
+        let currentNode = node.nodeName.toLowerCase()
+        if (currentNode !== 'button') {
+          console.warn(`You need use a s-button as slots in s-button-group, now you are using a ${currentNode}`)
+        }
+      }
+    }
+  }
 </script>
 
 <style lang="scss">
