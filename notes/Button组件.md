@@ -58,4 +58,12 @@
    }
    ```
 
+9. 不是第一个元素
+
+   ```css
+   &:not(:first-child) {
+     margin-left: -1px;
+   }
+   ```
+
    

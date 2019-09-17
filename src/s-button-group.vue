@@ -38,7 +38,7 @@
         border-bottom-right-radius: var(--border-radius);
       }
       
-      &:nth-child(n+2) {
+      &:not(:first-child) {
         margin-left: -1px;
       }
       
