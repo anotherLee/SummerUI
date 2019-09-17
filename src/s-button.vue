@@ -2,8 +2,9 @@
 * 1. 使用slot来传文本
 */
 <template>
-  <button class="s-button" :class="{[`icon-${iconPosition}`]: true}">
-    <s-icon :name="icon"></s-icon>
+  <button class="s-button" :class="{[`icon-${iconPosition}`]: true}" @click="$emit('click')">
+    <s-icon :name="icon" v-if="!loading"></s-icon>
+    <s-icon class="rotate" name="loading" v-if="loading"></s-icon>
     <div class="content">
       <slot></slot>
     </div>
@@ -23,12 +24,21 @@
         validator: function (value) {
           return value === 'left' || value === 'right'
         }
+      },
+      loading: {
+        type: Boolean,
+        default: false
       }
     }
   }
 </script>
 
 <style lang="scss" type="text/scss">
+  @keyframes spin {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
+  }
+  
   .s-button {
     display: inline-flex;
     justify-content: center;
@@ -73,6 +83,10 @@
       .content {
         order: 1;
       }
+    }
+    
+    .icon.rotate {
+      animation: spin 1.2s infinite linear;
     }
   }
 </style>
