@@ -3,9 +3,10 @@
 */
 <template>
   <button class="s-button" :class="{[`icon-${iconPosition}`]: true}">
-    <svg v-if="icon" class="icon">
-      <use :xlink:href="`#i-${icon}`"></use>
-    </svg>
+<!--    <svg v-if="icon" class="icon">-->
+<!--      <use :xlink:href="`#i-${icon}`"></use>-->
+<!--    </svg>-->
+    <s-icon :name="icon"></s-icon>
     <div class="content">
       <slot></slot>
     </div>

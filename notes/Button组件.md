@@ -43,4 +43,7 @@
 
 6. 设置了`display: inline-flex` 之后，需要`vertical-align: top` 来使多个按键对齐
 
-7. **注意props要使用驼峰写法** 
+7. **注意props要使用驼峰写法**
+   - default
+   - type
+   - validator
