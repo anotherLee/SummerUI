@@ -77,3 +77,4 @@
     - 指定一个出口，并接所有的东西导出
     - 在npm注册一个账号
     - npm adduser
+12. 使用`npm link` 或者 `yarn link` 来测试
