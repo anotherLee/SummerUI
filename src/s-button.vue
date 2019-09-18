@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import Icon from './s-icon'
   export default {
     props: {
       icon: {
@@ -36,6 +37,9 @@
         let defaultValue = this.$slots.default
         return defaultValue && defaultValue.length
       }
+    },
+    components: {
+      'SIcon': Icon
     }
   }
 </script>

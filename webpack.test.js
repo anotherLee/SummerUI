@@ -1,15 +1,24 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const fs = require('fs')
+
+function getEntry(dir) {
+  const names = fs.readdirSync(dir)
+  const result = {}
+  names.forEach(f => {
+    let name = f.replace(/\.test\.js$/, '')
+    result[name] = './test/' + f
+  })
+  return result
+}
 
 module.exports = {
-  mode: 'development',
-  entry: {
-    main: './src/index.js'
-  },
+  mode: 'production',
+  entry: getEntry('./test/'),
 
   output: {
-    filename: '[name].js',
+    filename: '[name].test.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
@@ -19,13 +28,6 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.common.js',
     }
-  },
-
-  devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
-    compress: true,
-    port: 9000,
-    hot: true
   },
 
   module: {
@@ -52,17 +54,7 @@ module.exports = {
   },
 
   plugins: [
-    // 复制html到dist目录下
-    new HtmlWebpackPlugin({
-      template: './index.html',
-      filename: "index.html"
-    }),
-
-    // vue-loader需要用的插件
     new VueLoaderPlugin(),
-
-    // 热更新需要的插件
-    // new Webpack.HotModuleReplacementPlugin(),
-    // new Webpack.NamedModulesPlugin(),
+    new CleanWebpackPlugin()
   ]
 }
