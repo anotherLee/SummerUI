@@ -5,7 +5,7 @@
   <button class="s-button" :class="{[`icon-${iconPosition}`]: true}" @click="$emit('click')">
     <s-icon :name="icon" v-if="!loading"></s-icon>
     <s-icon class="rotate" name="loading" v-if="loading"></s-icon>
-    <div class="content">
+    <div class="content" :class="{noSlots: !hasSlots}">
       <slot></slot>
     </div>
   </button>
@@ -22,12 +22,19 @@
         type: String,
         default: 'left',
         validator: function (value) {
-          return value === 'left' || value === 'right'
+          return ['left', 'right'].indexOf(value) !== -1
         }
       },
       loading: {
         type: Boolean,
         default: false
+      }
+    },
+    // 如果按钮只有图标没有文字那就不要文字和图标之间的margin空隙
+    computed: {
+      hasSlots() {
+        let defaultValue = this.$slots.default
+        return defaultValue && defaultValue.length
       }
     }
   }
@@ -35,8 +42,12 @@
 
 <style lang="scss" type="text/scss">
   @keyframes spin {
-    0% { transform: rotate(0deg) }
-    100% { transform: rotate(360deg) }
+    0% {
+      transform: rotate(0deg)
+    }
+    100% {
+      transform: rotate(360deg)
+    }
   }
   
   .s-button {
@@ -67,21 +78,28 @@
     &.icon-left {
       .icon {
         order: 1;
-        margin-right: 0.3em;
       }
       
       .content {
-        order: 2
+        order: 2;
+        margin-left: 0.3em;
+      }
+      .noSlots {
+        margin-left: 0;
       }
     }
     
     &.icon-right {
       .icon {
         order: 2;
-        margin-left: 0.3em;
       }
+      
       .content {
         order: 1;
+        margin-right: 0.3em;
+      }
+      .noSlots {
+        margin-right: 0;
       }
     }
     
