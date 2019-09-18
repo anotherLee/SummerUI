@@ -3,6 +3,9 @@ import Button from './s-button.vue'
 import Icon from './s-icon.vue'
 import ButtonGroup from './s-button-group.vue'
 import chai from 'chai'
+import spies from 'chai-spies'
+
+chai.use(spies)
 
 Vue.component('s-button', Button)
 Vue.component('s-icon', Icon)
@@ -81,9 +84,10 @@ const expect = chai.expect
     }
   })
   vm.$mount(div)
-  vm.$on('click', function(){
-    console.log(1)
-  })
+
+  let spy = chai.spy(function(){})
+  vm.$on('click', spy)
   let button = vm.$el
   button.click()
+  expect(spy).to.have.been.called()
 }
