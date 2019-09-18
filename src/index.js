@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Button from './s-button.vue'
 import Icon from './s-icon.vue'
 import ButtonGroup from './s-button-group.vue'
+import './svg'
 
 Vue.component('s-button', Button)
 Vue.component('s-icon', Icon)
