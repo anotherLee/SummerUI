@@ -12,7 +12,8 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/',
+    libraryTarget: 'umd'
   },
 
   resolve: {
@@ -20,13 +21,6 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.common.js',
     }
-  },
-
-  devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
-    compress: true,
-    port: 9000,
-    hot: true
   },
 
   module: {

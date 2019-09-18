@@ -2,10 +2,12 @@
 * 1. 使用slot来传文本
 */
 <template>
-  <button class="s-button" :class="{[`icon-${iconPosition}`]: true}" @click="$emit('click')">
+  <button class="s-button"
+          :class="{[`icon-${iconPosition}`]: true, noSlots: !hasSlots}"
+          @click="$emit('click')">
     <s-icon :name="icon" v-if="!loading"></s-icon>
     <s-icon class="rotate" name="loading" v-if="loading"></s-icon>
-    <div class="content" :class="{noSlots: !hasSlots}">
+    <div class="content">
       <slot></slot>
     </div>
   </button>
@@ -13,6 +15,7 @@
 
 <script>
   import Icon from './s-icon'
+
   export default {
     props: {
       icon: {
@@ -82,31 +85,36 @@
     &.icon-left {
       .icon {
         order: 1;
+        margin-right: 0.3em;
       }
       
       .content {
         order: 2;
-        margin-left: 0.3em;
-      }
-      .noSlots {
-        margin-left: 0;
       }
     }
     
     &.icon-right {
       .icon {
         order: 2;
+        margin-left: 0.3em;
       }
       
       .content {
         order: 1;
-        margin-right: 0.3em;
-      }
-      .noSlots {
-        margin-right: 0;
       }
     }
     
+    &.icon-left.noSlots {
+      .icon {
+        margin-right: 0;
+      }
+    }
+    &.icon-right.noSlots {
+      .icon {
+        margin-left: 0;
+      }
+    }
+  
     .icon.rotate {
       animation: spin 1.2s infinite linear;
     }
