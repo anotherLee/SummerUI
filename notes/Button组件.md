@@ -69,4 +69,11 @@
 10. 自动化测试
 
     - karma 运行器，**打开一个无头浏览器，跑测试脚本，然后把控制台输出显示到到终端** 
-      - karma.conf.js 配置文件 
+      - karma.conf.js 配置文件
+    - travis ci
+      - 添加.travis.yml
+
+11.  发布npm包
+    - 指定一个出口，并接所有的东西导出
+    - 在npm注册一个账号
+    - npm adduser
