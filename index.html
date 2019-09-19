@@ -60,9 +60,13 @@
     <div class="box">
       <s-input @change="inputChange"></s-input>
     </div>
+    <div class="box">
+      <s-input v-model='inputValue'></s-input>
+      {{ inputValue }}
+    </div>
   </div>
 </div>
 <div id="test"></div>
-<!--<script src="//at.alicdn.com/t/font_1418858_xz8ckunxm4.js"></script>-->
+<div id="testInput"></div>
 </body>
 </html>
