@@ -32,6 +32,11 @@
       font-size: var(--font-size);
     }
   </style>
+  <style>
+    .test-input {
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body>
 <div id="app">
@@ -46,6 +51,13 @@
   </s-button-group>
   <s-button>确定</s-button>
   <s-button icon="setting"></s-button>
+  <div class="test-input">
+    <s-input></s-input>
+    <s-input value="张三"></s-input>
+    <s-input value="张三" disabled></s-input>
+    <s-input value="张三" readonly></s-input>
+    <s-input value="张三" error="这是错误信息"></s-input>
+  </div>
 </div>
 <div id="test"></div>
 <!--<script src="//at.alicdn.com/t/font_1418858_xz8ckunxm4.js"></script>-->

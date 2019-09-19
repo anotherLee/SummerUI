@@ -14,9 +14,10 @@
 </template>
 
 <script>
-  import Icon from './s-icon'
+  import Icon from './Icon'
 
   export default {
+    name: 's-button',
     props: {
       icon: {
         type: String,
@@ -47,7 +48,7 @@
   }
 </script>
 
-<style lang="scss" type="text/scss">
+<style lang="scss" type="text/scss" scoped>
   @keyframes spin {
     0% {
       transform: rotate(0deg)
@@ -83,38 +84,25 @@
     }
     
     &.icon-left {
-      .icon {
-        order: 1;
-        margin-right: 0.3em;
-      }
+      .icon {order: 1;margin-right: 0.3em;}
       
-      .content {
-        order: 2;
-      }
+      .content {order: 2;}
     }
     
     &.icon-right {
-      .icon {
-        order: 2;
-        margin-left: 0.3em;
-      }
+      .icon {order: 2;margin-left: 0.3em;}
       
-      .content {
-        order: 1;
-      }
+      .content {order: 1;}
     }
     
     &.icon-left.noSlots {
-      .icon {
-        margin-right: 0;
-      }
+      .icon {margin-right: 0;}
     }
+    
     &.icon-right.noSlots {
-      .icon {
-        margin-left: 0;
-      }
+      .icon {margin-left: 0;}
     }
-  
+    
     .icon.rotate {
       animation: spin 1.2s infinite linear;
     }

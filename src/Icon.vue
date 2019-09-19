@@ -5,7 +5,9 @@
 </template>
 
 <script>
+  import './svg'
   export default {
+    name: 's-icon',
     props: {
       name: {
         type: String,
@@ -15,8 +17,7 @@
   }
 </script>
 
-<style lang="scss">
-  /*这里为了和字一样高，所以用em*/
+<style lang="scss" scoped>
   .icon {
     width: 1em;
     height: 1em;

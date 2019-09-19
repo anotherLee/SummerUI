@@ -6,6 +6,7 @@
 
 <script>
   export default {
+    name: 's-group-button',
     mounted() {
       let children = this.$el.children
       for (let node of children) {
@@ -18,7 +19,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .s-button-group {
     display: inline-flex;
     justify-content: center;

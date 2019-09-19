@@ -1,6 +1,6 @@
 const expect = chai.expect
 import Vue from 'vue'
-import Button from '../src/s-button.vue'
+import Button from '../src/Button.vue'
 
 Vue.config.productionTip = false
 Vue.config.devtools = false

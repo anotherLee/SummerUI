@@ -1,12 +1,14 @@
 import Vue from 'vue'
-import Button from './s-button.vue'
-import Icon from './s-icon.vue'
-import ButtonGroup from './s-button-group.vue'
-import './svg'
+import Button from './Button.vue'
+import Icon from './Icon.vue'
+import ButtonGroup from './ButtonGroup.vue'
+import Input from './Input'
 
 Vue.component('s-button', Button)
 Vue.component('s-icon', Icon)
 Vue.component('s-button-group', ButtonGroup)
+Vue.component('s-input', Input)
+
 
 new Vue({
   el: '#app',
