@@ -14,6 +14,12 @@ new Vue({
   el: '#app',
   data: {
     loading1: false,
-    loading2: false
+    loading2: false,
+  },
+  methods: {
+    inputChange(e) {
+      console.log(1)
+      console.log(e)
+    }
   }
 })
