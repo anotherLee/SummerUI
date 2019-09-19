@@ -36,6 +36,11 @@
     .test-input {
       margin: 20px 0;
     }
+    .box {
+      margin: 10px 0;
+    }
+  </style>
+  <style>
   </style>
 </head>
 <body>
@@ -65,6 +70,23 @@
       {{ inputValue }}
     </div>
   </div>
+  
+  <div class="box">
+    <s-row>
+      <s-col>1</s-col>
+      <s-col>2</s-col>
+    </s-row>
+    <s-row>
+      <s-col>1</s-col>
+      <s-col>2</s-col>
+      <s-col>2</s-col>
+    </s-row>
+    <s-row>
+      <s-col span="2">1</s-col>
+      <s-col span="22">2</s-col>
+    </s-row>
+  </div>
+  
 </div>
 <div id="test"></div>
 <div id="testInput"></div>

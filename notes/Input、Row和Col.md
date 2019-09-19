@@ -7,3 +7,5 @@
    - 有value属性
    - 触发`input` 事件
 
+4. flex里的`flex-wrap` 和 `flex-shrink` 的用处
+5. 
