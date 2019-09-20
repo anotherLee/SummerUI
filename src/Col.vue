@@ -17,12 +17,12 @@
     return valid
   }
   
-  const generateClass = (arr) => {
+  const generateClasses = (arr) => {
     let className = ['phone', 'pad', 'narrow', 'pc']
     let newClass = []
     arr.forEach((c, index) => {
       for (let key in c) {
-        if (c[key]) {
+        if (c.hasOwnProperty(key) && c[key]) {
           newClass.push(`col-${className[index]}-${key}-${c[key]}`)
         }
       }
@@ -51,7 +51,7 @@
         return [
           span && `col-${span}`,
           offset && `offset-${offset}`,
-          ...generateClass(leftProps)
+          ...generateClasses(leftProps)
         ]
       },
       colStyle() {
