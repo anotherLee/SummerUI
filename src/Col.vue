@@ -1,8 +1,6 @@
 <template>
-  <div class="col" :class="[span && `col-${span}`, offset && `offset-${offset}`]" :style="{padding: `0 ${parseInt(gutter)/2}px`}">
-    <div style="border: 1px solid green;">
-      <slot></slot>
-    </div>
+  <div class="col" :class="colClass" :style="colStyle">
+    <slot></slot>
   </div>
 </template>
 
@@ -15,6 +13,20 @@
       },
       offset: {
         type: [Number, String]
+      }
+    },
+    computed: {
+      colClass() {
+        const { span, offset } = this
+        return [
+          span && `col-${span}`,
+          offset && `offset-${offset}`
+        ]
+      },
+      colStyle() {
+        return {
+          padding: `0 ${parseInt(this.gutter) / 2}px`
+        }
       }
     },
     data() {
