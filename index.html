@@ -36,14 +36,17 @@
     .test-input {
       margin: 20px 0;
     }
+    
     .row-box {
       margin: 10px 0;
       border: 1px solid black;
     }
+    
     .innerDiv1 {
       height: 50px;
       background-color: aquamarine;
     }
+    
     .innerDiv2 {
       height: 50px;
       background-color: deepskyblue;
@@ -54,31 +57,38 @@
 </head>
 <body>
 <div id="app">
-<!--  <s-button icon="setting">我爱JS</s-button>-->
-<!--  <s-button icon="right" icon-position="right" :loading="true">点击</s-button>-->
-<!--  <s-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">我爱JS</s-button>-->
-<!--  <s-button>我爱你</s-button>-->
-<!--  <s-button-group>-->
-<!--    <s-button icon="left">向左</s-button>-->
-<!--    <s-button icon="setting">中间</s-button>-->
-<!--    <s-button icon="right">向右</s-button>-->
-<!--  </s-button-group>-->
-<!--  <s-button>确定</s-button>-->
-<!--  <s-button icon="setting"></s-button>-->
-<!--  <div class="test-input">-->
-<!--    <s-input></s-input>-->
-<!--    <s-input value="张三"></s-input>-->
-<!--    <s-input value="张三" disabled></s-input>-->
-<!--    <s-input value="张三" readonly></s-input>-->
-<!--    <s-input value="张三" error="这是错误信息"></s-input>-->
-<!--    <div class="box">-->
-<!--      <s-input @change="inputChange"></s-input>-->
-<!--    </div>-->
-<!--    <div class="box">-->
-<!--      <s-input v-model='inputValue'></s-input>-->
-<!--      {{ inputValue }}-->
-<!--    </div>-->
-<!--  </div>-->
+  <s-button icon="setting">我爱JS</s-button>
+  <s-button icon="right" icon-position="right" :loading="true">点击</s-button>
+  <s-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">我爱JS</s-button>
+  <s-button>我爱你</s-button>
+  <s-button-group>
+    <s-button icon="left">向左</s-button>
+    <s-button icon="setting">中间</s-button>
+    <s-button icon="right">向右</s-button>
+  </s-button-group>
+  <s-button>确定</s-button>
+  <s-button icon="setting"></s-button>
+  <div class="test-input">
+    <s-input></s-input>
+    <s-input value="张三"></s-input>
+    <s-input value="张三" disabled></s-input>
+    <s-input value="张三" readonly></s-input>
+    <s-input value="张三" error="这是错误信息"></s-input>
+    <div class="box">
+      <s-input @change="inputChange"></s-input>
+    </div>
+    <div class="box">
+      <s-input v-model='inputValue'></s-input>
+      {{ inputValue }}
+    </div>
+  </div>
+  
+  <div class="test-row">
+    <s-row>
+      <s-col span="12" class="innerDiv1" :phone="{ span: 12 }" :pad="{span: 10}" :narrow="{span: 8}" :pc="{span: 6}"></s-col>
+      <s-col span="12" class="innerDiv2" :phone="{ span: 12 }" :pad="{span: 14}" :narrow="{span: 16}" :pc="{span: 18}"></s-col>
+    </s-row>
+  </div>
 
 </div>
 <div id="test"></div>
