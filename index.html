@@ -36,8 +36,9 @@
     .test-input {
       margin: 20px 0;
     }
-    .box {
+    .row-box {
       margin: 10px 0;
+      border: 1px solid black;
     }
   </style>
   <style>
@@ -71,19 +72,22 @@
     </div>
   </div>
   
-  <div class="box">
+  <div class="row-box">
     <s-row>
+      <s-col>2</s-col>
+    </s-row>
+    <s-row gutter="20">
       <s-col>1</s-col>
       <s-col>2</s-col>
     </s-row>
-    <s-row>
+    <s-row gutter="20">
       <s-col>1</s-col>
       <s-col>2</s-col>
       <s-col>2</s-col>
     </s-row>
     <s-row>
       <s-col span="2">1</s-col>
-      <s-col span="22">2</s-col>
+      <s-col span="20" offset="2">2</s-col>
     </s-row>
   </div>
   
