@@ -1,5 +1,5 @@
 <template>
-  <div class="s-sider"></div>
+  <div class="s-header"></div>
 </template>
 
 <script>
