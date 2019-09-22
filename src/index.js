@@ -45,13 +45,7 @@ new Vue({
     clickButton() {
       this.$toast('很很多文字很多', {
         closeButton: {
-          text: '知道啦',
-          callback: function() {
-            console.log('说了知道啦')
-          }
-        },
-        enableHtml: false,
-        position: 'middle'
+        }
       })
     }
   }
