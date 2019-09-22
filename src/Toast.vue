@@ -1,7 +1,9 @@
 <template>
-  <div class="s-toast">
-    <slot></slot>
-    <span class="close" v-if="closeButton && closeButton.text" @click="closeCallback()">
+  <div class="s-toast" ref="wrapper">
+    <slot v-if="!enableHtml"></slot>
+    <div v-else v-html="$slots.default[0]"></div>
+    <div class="line" ref="line"></div>
+    <span class="close" v-if="closeButton && closeButton.text" @click="closeCallback">
       {{ closeButton.text }}
     </span>
   </div>
@@ -23,26 +25,41 @@
         type: Object,
         default: () => ({
           text: '关闭',
-          callback: function() {
-            this.close()
-          }
+          callback: undefined
         })
+      },
+      enableHtml: {
+        type: Boolean,
+        default: false
       }
     },
     mounted() {
-      if (this.autoClose) {
-        window.setTimeout(() => {
-          this.close()
-        }, this.autoCloseDelay * 1000)
-      }
+      this.executeAutoClose()
+      this.setLineHeight()
     },
     methods: {
+      executeAutoClose() {
+        if (this.autoClose) {
+          window.setTimeout(() => {
+            this.close()
+          }, this.autoCloseDelay * 1000)
+        }
+      },
+      setLineHeight() {
+        const { wrapper, line } = this.$refs
+        this.$nextTick(() => {
+          line.style.height = wrapper.offsetHeight + 'px'
+        })
+      },
       close() {
         this.$el.remove()
         this.$destroy()
       },
       closeCallback() {
-        this.closeButton.callback()
+        let { callback } = this.closeButton
+        if (callback && typeof callback === 'function') {
+          this.closeButton.callback()
+        }
         this.close()
       }
     }
@@ -51,26 +68,26 @@
 
 <style lang="scss" scoped>
   $font-size: 14px;
-  $toast-height: 40px;
-  $toast-bg: rgba(0,0,0,0.75);
+  $toast-min-height: 40px;
+  $toast-bg: rgba(0, 0, 0, 0.75);
   .s-toast {
     display: flex; align-items: center;
     position: fixed; top: 0; left: 50%; transform: translateX(-50%);
-    line-height: 1.8; height: $toast-height;
+    line-height: 1.8; min-height: $toast-min-height;
     padding: 0 1em;
     background-color: $toast-bg; font-size: $font-size;border-radius: 3px; color: #fff;
-    box-shadow: 0 0 2px 0 rgba(0,0,0,0.5);
-    >.close {
-      display: flex; align-items: center;
-      height: 100%; padding-left: 2em;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    
+    .line {
+      margin: 0 1em;
+      border-left: 1px solid #666;
+    }
+    
+    > .close {
+      flex-shrink: 0;
+      height: 100%;
       position: relative;
       cursor: pointer;
-      &:after {
-        content: '';
-        position: absolute; left: 1em; top: 0;
-        height: 100%; width: 0;
-        border-left: 1px solid #666;
-      }
     }
   }
 </style>

@@ -43,8 +43,15 @@ new Vue({
       console.log(e)
     },
     clickButton() {
-      console.log(1)
-      this.$toast('我是toast')
+      this.$toast('很很多文字很多文字很多文字很多文字很多文字很很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字很多文字多文字很多文字很多文字很多文字很多文字多文字', {
+        closeButton: {
+          text: '知道啦',
+          callback: function() {
+            console.log('说了知道啦')
+          }
+        },
+        enableHtml: false
+      })
     }
   }
 })
