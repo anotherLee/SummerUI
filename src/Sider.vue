@@ -1,9 +1,13 @@
 <template>
-  <div class="s-sider"></div>
+  <div class="s-sider">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    name: 's-sider'
+  }
 </script>
 
 <style scoped lang="scss">

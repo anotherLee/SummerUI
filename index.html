@@ -53,41 +53,71 @@
     }
   </style>
   <style>
+    .layout {
+      margin: 20px 0;
+    }
+    .s-layout {
+      border: 1px solid red;
+    }
+    .s-footer, .s-header, .s-content, .s-sider {
+      min-height: 80px;
+      border: 1px solid black;
+    }
   </style>
 </head>
 <body>
 <div id="app">
-  <s-button icon="setting">我爱JS</s-button>
-  <s-button icon="right" icon-position="right" :loading="true">点击</s-button>
-  <s-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">我爱JS</s-button>
-  <s-button>我爱你</s-button>
-  <s-button-group>
-    <s-button icon="left">向左</s-button>
-    <s-button icon="setting">中间</s-button>
-    <s-button icon="right">向右</s-button>
-  </s-button-group>
-  <s-button>确定</s-button>
-  <s-button icon="setting"></s-button>
-  <div class="test-input">
-    <s-input></s-input>
-    <s-input value="张三"></s-input>
-    <s-input value="张三" disabled></s-input>
-    <s-input value="张三" readonly></s-input>
-    <s-input value="张三" error="这是错误信息"></s-input>
-    <div class="box">
-      <s-input @change="inputChange"></s-input>
-    </div>
-    <div class="box">
-      <s-input v-model='inputValue'></s-input>
-      {{ inputValue }}
-    </div>
-  </div>
+<!--  <s-button icon="setting">我爱JS</s-button>-->
+<!--  <s-button icon="right" icon-position="right" :loading="true">点击</s-button>-->
+<!--  <s-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">我爱JS</s-button>-->
+<!--  <s-button>我爱你</s-button>-->
+<!--  <s-button-group>-->
+<!--    <s-button icon="left">向左</s-button>-->
+<!--    <s-button icon="setting">中间</s-button>-->
+<!--    <s-button icon="right">向右</s-button>-->
+<!--  </s-button-group>-->
+<!--  <s-button>确定</s-button>-->
+<!--  <s-button icon="setting"></s-button>-->
+<!--  <div class="test-input">-->
+<!--    <s-input></s-input>-->
+<!--    <s-input value="张三"></s-input>-->
+<!--    <s-input value="张三" disabled></s-input>-->
+<!--    <s-input value="张三" readonly></s-input>-->
+<!--    <s-input value="张三" error="这是错误信息"></s-input>-->
+<!--    <div class="box">-->
+<!--      <s-input @change="inputChange"></s-input>-->
+<!--    </div>-->
+<!--    <div class="box">-->
+<!--      <s-input v-model='inputValue'></s-input>-->
+<!--      {{ inputValue }}-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  -->
+<!--  <div class="test-row">-->
+<!--    <s-row>-->
+<!--      <s-col span="12" class="innerDiv1" :pc="{span: 24}"></s-col>-->
+<!--      <s-col span="12" class="innerDiv2" :pc="{span: 24}"></s-col>-->
+<!--    </s-row>-->
+<!--  </div>-->
   
-  <div class="test-row">
-    <s-row>
-      <s-col span="12" class="innerDiv1" :pc="{span: 24}"></s-col>
-      <s-col span="12" class="innerDiv2" :pc="{span: 24}"></s-col>
-    </s-row>
+  <div class="layout">
+    <s-layout>
+      <s-header>header</s-header>
+      <s-layout>
+        <s-content>content</s-content>
+        <s-sider>sider</s-sider>
+      </s-layout>
+      <s-footer>footer</s-footer>
+    </s-layout>
+    
+    <s-layout>
+      <s-sider>sider</s-sider>
+      <s-layout>
+        <s-header>header</s-header>
+        <s-content>content</s-content>
+        <s-footer>footer</s-footer>
+      </s-layout>
+    </s-layout>
   </div>
 
 </div>
