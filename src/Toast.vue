@@ -67,6 +67,7 @@
       },
       close() {
         this.$el.remove()
+        this.$emit('destroy')
         this.$destroy()
       },
       closeCallback() {
@@ -96,15 +97,17 @@
       top: 0; left: 50%;
       transform: translateX(-50%);
     }
+    
     &.position-middle {
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
     }
+    
     &.position-bottom {
       bottom: 0; left: 50%;
       transform: translateX(-50%);
     }
-  
+    
     .line {
       margin: 0 1em;
       border-left: 1px solid #666;
