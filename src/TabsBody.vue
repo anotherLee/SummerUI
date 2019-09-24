@@ -8,11 +8,11 @@
   export default {
     name: 's-tabs-body',
     inject: ['eventBus'],
-    created() {
-    },
   }
 </script>
 
 <style lang="scss" scoped>
-
+.s-tabs-body {
+  padding: 1em;
+}
 </style>

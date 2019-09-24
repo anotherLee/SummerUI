@@ -26,18 +26,23 @@
 <style lang="scss" scoped>
   $tab-height: 40px;
   $blue: blue;
+  $border-color: #ddd;
   .s-tabs-head {
     display: flex;
     justify-content: flex-start;
     position: relative;
     height: $tab-height;
-    border: 1px solid red;
+    border-bottom: 1px solid $border-color;
+    
     .line {
       position: absolute;bottom: 0;
       border-bottom: 2px solid $blue;
       transition: all 0.25s linear;
     }
-    >.actions-wrapper {
+    
+    > .actions-wrapper {
+      display: flex; align-items: center;
+      padding: 0 1em;
       margin-left: auto;
     }
   }
