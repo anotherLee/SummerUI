@@ -1,5 +1,5 @@
 <template>
-  <div class="s-tabs-item" @click="select" :class="classes">
+  <div class="s-tabs-item" @click="select" :class="classes" :data-name="name">
     <slot></slot>
   </div>
 </template>
@@ -32,9 +32,11 @@
     },
     inject: ['eventBus'],
     created() {
-      this.eventBus.$on('update:selected', (name) => {
-        this.active = name === this.name
-      })
+      if (this.eventBus) {
+        this.eventBus.$on('update:selected', (name) => {
+          this.active = name === this.name
+        })
+      }
     },
     methods: {
       select() {

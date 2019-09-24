@@ -35,6 +35,9 @@
       this.$emit('update:selected')
     },
     mounted() {
+      if (this.$children.length === 0) {
+        throw new Error('Component Tabs \' children component should be TabsHead or TabsBody!')
+      }
       this.$children.forEach(vm => {
         if (vm.$options.name === 's-tabs-head') {
           vm.$children.forEach(item => {
