@@ -45,7 +45,7 @@ new Vue({
     loading1: false,
     loading2: false,
     inputValue: '',
-    selectedTab: 'tab1'
+    selectedTab: 'tab3'
   },
   created() {
   },

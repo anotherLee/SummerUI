@@ -12,10 +12,12 @@
   export default {
     name: 's-tabs-head',
     inject: ['eventBus'],
-    created() {
+    mounted() {
       this.eventBus.$on('update:selected', (name, vm) => {
-        console.log(name)
-        console.log(vm)
+        const { offsetLeft: left, offsetWidth: width } = vm.$el
+        const { line } = this.$refs
+        line.style.width = width + 'px'
+        line.style.left = `${left}px`
       })
     }
   }
@@ -32,8 +34,8 @@
     border: 1px solid red;
     .line {
       position: absolute;bottom: 0;
-      border-bottom: 1px solid $blue;
-      width: 100px;
+      border-bottom: 2px solid $blue;
+      transition: all 0.25s linear;
     }
     >.actions-wrapper {
       margin-left: auto;

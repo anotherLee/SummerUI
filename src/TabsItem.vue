@@ -49,7 +49,7 @@
     display: flex; align-items: center;
     height: 100%;
     flex-shrink: 0;
-    padding: 0 2em;
+    padding: 0 1em;
     &.active {
       color: $blue;
     }
