@@ -11,6 +11,12 @@ import Footer from "./Footer"
 import Content from "./Content"
 import Sider from "./Sider"
 import Toast from "./Toast"
+import Tabs from "./Tabs"
+import TabsHead from "./TabsHead"
+import TabsItem from "./TabsItem"
+import TabsBody from "./TabsBody"
+import TabsPane from "./TabsPane"
+
 import plugin from './plugin'
 
 Vue.component('s-button', Button)
@@ -26,6 +32,11 @@ Vue.component('s-content', Content)
 Vue.component('s-sider', Sider)
 Vue.component('s-toast', Toast)
 Vue.use(plugin)
+Vue.component('s-tabs', Tabs)
+Vue.component('s-tabs-head', TabsHead)
+Vue.component('s-tabs-item', TabsItem)
+Vue.component('s-tabs-body', TabsBody)
+Vue.component('s-tabs-pane', TabsPane)
 
 
 new Vue({
@@ -33,7 +44,8 @@ new Vue({
   data: {
     loading1: false,
     loading2: false,
-    inputValue: ''
+    inputValue: '',
+    selectedTab: 'tab1'
   },
   created() {
   },
