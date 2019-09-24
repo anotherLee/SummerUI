@@ -25,7 +25,8 @@
     computed: {
       classes() {
         return {
-          active: this.active
+          active: this.active,
+          disabled: this.disabled
         }
       }
     },
@@ -37,6 +38,7 @@
     },
     methods: {
       select() {
+        if (this.disabled) return
         this.eventBus.$emit('update:selected', this.name, this)
       }
     }
@@ -45,6 +47,7 @@
 
 <style lang="scss" scoped>
   $blue: blue;
+  $disabled-color: grey;
   .s-tabs-item {
     display: flex; align-items: center;
     height: 100%;
@@ -52,6 +55,10 @@
     padding: 0 1em;
     &.active {
       color: $blue;
+    }
+    &.disabled {
+      color: $disabled-color;
+      cursor: not-allowed;
     }
     cursor: pointer;
   }
