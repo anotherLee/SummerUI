@@ -6,7 +6,10 @@
 
 <script>
   export default {
-    name: 's-tabs-body'
+    name: 's-tabs-body',
+    inject: ['eventBus'],
+    created() {
+    },
   }
 </script>
 

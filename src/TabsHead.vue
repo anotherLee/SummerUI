@@ -7,7 +7,10 @@
 
 <script>
   export default {
-    name: 's-tabs-header'
+    name: 's-tabs-header',
+    inject: ['eventBus'],
+    created() {
+    }
   }
 </script>
 
