@@ -35,7 +35,15 @@
       this.$emit('update:selected')
     },
     mounted() {
-      this.eventBus.$emit('update:selected', this.selected)
+      this.$children.forEach(vm => {
+        if (vm.$options.name === 's-tabs-head') {
+          vm.$children.forEach(item => {
+            if (item.$options.name === 's-tabs-item' && item.name === this.selected) {
+              this.eventBus.$emit('update:selected', this.selected, item)
+            }
+          })
+        }
+      })
     }
   }
 </script>
