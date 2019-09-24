@@ -5,7 +5,7 @@
       <div v-else v-html="$slots.default[0]"></div>
       <div class="line" ref="line" v-if="closeButton.text"></div>
       <span class="close" @click="closeCallback" v-if="closeButton.text">
-        {{ closeButton.text }}
+        {{closeButton.text}}
       </span>
     </div>
   </div>
@@ -16,12 +16,8 @@
     name: 's-toast',
     props: {
       autoClose: {
-        type: Boolean,
+        type: [Boolean, Number],
         default: true
-      },
-      autoCloseDelay: {
-        type: Number,
-        default: 60
       },
       closeButton: {
         type: Object,
@@ -55,16 +51,25 @@
     },
     methods: {
       executeAutoClose() {
+        let timeout
+        if (typeof this.autoClose === 'boolean') {
+          if (!this.autoClose) return
+          timeout = 2
+        } else {
+          timeout = this.autoClose
+        }
         if (this.autoClose) {
           window.setTimeout(() => {
             this.close()
-          }, this.autoCloseDelay * 1000)
+          }, timeout * 1000)
         }
       },
       setLineHeight() {
         const { toast, line } = this.$refs
         this.$nextTick(() => {
-          line.style.height = toast.offsetHeight + 'px'
+          if (line) {
+            line.style.height = toast.offsetHeight + 'px'
+          }
         })
       },
       close() {

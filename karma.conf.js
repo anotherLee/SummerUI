@@ -8,6 +8,9 @@ module.exports = function (config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha', 'sinon-chai'],
     client: {
+      mocha: {
+        timeout: 5000
+      },
       chai: {
         includeStack: true
       }
