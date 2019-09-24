@@ -45,10 +45,13 @@
 
 <style lang="scss" scoped>
   .s-tabs-item {
+    display: flex; align-items: center;
+    height: 100%;
     flex-shrink: 0;
     padding: 0 2em;
     &.active {
       background-color: red;
     }
+    cursor: pointer;
   }
 </style>
