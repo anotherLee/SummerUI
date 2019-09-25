@@ -36,4 +36,31 @@ describe('Popover', () => {
       done()
     })
   })
+
+  it('可以设置trigger', (done) => {
+    Vue.component('s-popover', Popover)
+    Vue.component('s-button', Button)
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    div.innerHTML = `
+      <s-popover ref="pop" trigger="hover">
+        <template v-slot:content>
+          弹出内容 
+        </template>
+        <template v-slot:default>
+          <s-button>点我</s-button> 
+        </template>
+      </s-popover>
+    `
+    const vm = new Vue({
+      el: div
+    })
+    const popover = vm.$refs.pop
+    const event = new Event('mouseenter')
+    popover.$refs.popover.dispatchEvent(event)
+    popover.$nextTick(() => {
+      expect(popover.$refs.contentWrapper).to.exist
+      done()
+    })
+  })
 })
