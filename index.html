@@ -65,7 +65,7 @@
       border: 1px solid black;
     }
     .popover {
-      padding: 50px;
+      padding: 200px;
     }
   </style>
 </head>
@@ -146,18 +146,32 @@
 <!--  </div>-->
   
   <div class="popover">
-    <s-popover>
+    <s-popover position="bottom">
+      <template slot="content">
+        <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>
+      </template>
+      <s-button>点我</s-button>
+    </s-popover>
+    <s-popover position="top">
       <template slot="content">
         <div>这是内容</div>
       </template>
-      <button>click me</button>
+      <s-button>点我</s-button>
     </s-popover>
-    <s-popover>
-      <template slot="content">
-        <div>这是内容</div>
-      </template>
-      <button>click me</button>
-    </s-popover>
+    <div>
+      <s-popover position="left">
+        <template slot="content">
+          <div>这是内容</div>
+        </template>
+        <s-button>点我</s-button>
+      </s-popover>
+      <s-popover position="right">
+        <template slot="content">
+          <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>
+        </template>
+        <s-button>点我</s-button>
+      </s-popover>
+    </div>
   </div>
 
 </div>

@@ -5,4 +5,13 @@
 2. **遇到的三个问题** 
    - overflow: hidden 遮盖问题，使用`body.appendChild` 来解决，但是还有滚动距离的问题
    - 关闭重复
-   - 收拢
+   - 取消监听
+3. contentWrapper的`margin-top: -10px` 这个好厉害
+
+4. 小三角如何添加 `box-shadow` 
+
+   ```css
+   filter: drop-shadow(0,0,2px,rgba(0,0,0,0.5));
+   ```
+
+   
