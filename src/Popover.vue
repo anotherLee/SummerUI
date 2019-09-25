@@ -19,29 +19,39 @@
     },
     methods: {
       clickPopover(e) {
-        let { triggerWrapper } = this.$refs
-        if (triggerWrapper.contains(e.target)) {
-          this.visible = !this.visible
+        if (this.$refs.triggerWrapper.contains(e.target)) {
           if (this.visible) {
-            this.$nextTick(() => {
-              this.listenDocument()
-              this.positionContent()
-            })
+            this.close()
+          } else {
+            this.open()
           }
         }
       },
       
       /*
-       * 监听document来控制content的显示隐藏
+       * 显示pop
        */
-      listenDocument() {
-        let { contentWrapper, triggerWrapper } = this.$refs
-        let handler = (e) => {
-          if (contentWrapper.contains(e.target) || triggerWrapper.contains(e.target)) return
-          this.visible = false
-          document.removeEventListener('click', handler)
-        }
-        document.addEventListener('click', handler)
+      open() {
+        this.visible = true
+        this.$nextTick(() => {
+          document.addEventListener('click', this.onClickHandler)
+          this.positionContent()
+        })
+      },
+
+      /*
+       * 关闭pop
+       */
+      close() {
+        this.visible = false
+        document.removeEventListener('click', this.onClickHandler)
+      },
+      
+      onClickHandler(e) {
+        const { contentWrapper, triggerWrapper } = this.$refs
+        if (contentWrapper && contentWrapper.contains(e.target) || triggerWrapper.contains(e.target)) return
+        this.visible = false
+        document.removeEventListener('click', this.onClickHandler)
       },
       
       /*
@@ -50,7 +60,7 @@
       positionContent() {
         let { contentWrapper, triggerWrapper } = this.$refs
         document.body.appendChild(contentWrapper)
-        let { width, height, left, top } = triggerWrapper.getBoundingClientRect()
+        let { left, top } = triggerWrapper.getBoundingClientRect()
         contentWrapper.style.left = `${left + window.scrollX}px`
         contentWrapper.style.top = `${top + window.scrollY}px`
       }
