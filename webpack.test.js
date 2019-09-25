@@ -14,7 +14,7 @@ function getEntry(dir) {
 }
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: getEntry('./test/'),
 
   output: {

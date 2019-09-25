@@ -69,7 +69,7 @@ describe('Input', () => {
     })
 
     function testEvent(eventName) {
-      vm = new Constructor({}).$mount('#testInput')
+      vm = new Constructor({}).$mount()
       const callback = sinon.fake()
       vm.$on(eventName, callback)
       let event = new Event(eventName)
