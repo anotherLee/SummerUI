@@ -1,6 +1,12 @@
 <template>
   <div class="s-popover" ref="popover">
-    <div ref="contentWrapper" class="content-wrapper" :class="{[`position-${position}`]:true}" v-if="visible">
+    <div
+      ref="contentWrapper"
+      class="content-wrapper"
+      :class="{[`position-${position}`]:true}" v-if="visible"
+      @mouseenter = "mouseEnterContent"
+      @mouseleave="mouseLeaveContent"
+      >
       <slot name="content"></slot>
     </div>
     <span ref="triggerWrapper" class="trigger-wrapper">
@@ -56,6 +62,9 @@
        * 显示pop
        */
       open() {
+        if (this.trigger === 'hover') {
+          window.clearTimeout(this.timer)
+        }
         this.visible = true
         this.$nextTick(() => {
           document.addEventListener('click', this.onClickHandler)
@@ -67,8 +76,18 @@
        * 关闭pop
        */
       close() {
-        this.visible = false
+        this.timer = window.setTimeout(() => {
+          this.visible = false
+        }, this.trigger === 'hover' ? 250 : 0)
         document.removeEventListener('click', this.onClickHandler)
+      },
+      
+      mouseEnterContent() {
+        window.clearTimeout(this.timer)
+      },
+      
+      mouseLeaveContent() {
+        this.trigger === 'hover' && (this.visible = false)
       },
 
       onClickHandler(e) {
@@ -153,6 +172,7 @@
       &:before, &:after {
         left: 50%; top: 100%;
         transform: translateX(-50%);
+        border-bottom: none;
       }
       
       &:before {
@@ -172,6 +192,7 @@
       &:before, &:after {
         left: 50%; bottom: 100%;
         transform: translateX(-50%);
+        border-top: none;
       }
       
       &:before {
@@ -188,8 +209,9 @@
       transform: translateX(-8px);
       
       &:before, &:after {
-        right: -14px; top: 50%;
+        right: -8px; top: 50%;
         transform: translateY(-50%);
+        border-right: none;
       }
       
       &:before {
@@ -197,7 +219,7 @@
       }
       
       &:after {
-        right: -13px;
+        right: -7px;
         border-left-color: #fff;
       }
     }
@@ -206,8 +228,9 @@
       transform: translateX(8px);
       
       &:before, &:after {
-        left: -14px; top: 50%;
+        left: -8px; top: 50%;
         transform: translateY(-50%);
+        border-left: none;
       }
       
       &:before {
@@ -215,7 +238,7 @@
       }
       
       &:after {
-        left: -13px;
+        left: -7px;
         border-right-color: #fff;
       }
     }
