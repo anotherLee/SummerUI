@@ -67,23 +67,30 @@
        * 定位content
        */
       positionContent() {
-        let { contentWrapper, triggerWrapper } = this.$refs
+        const { contentWrapper, triggerWrapper } = this.$refs
         document.body.appendChild(contentWrapper)
-        let { left, top, width, height } = triggerWrapper.getBoundingClientRect()
-        let { height: contentHeight, width: contentWidth } = contentWrapper.getBoundingClientRect()
-        if (this.position === 'top') {
-          contentWrapper.style.left = `${left - (contentWidth - width) / 2 + window.scrollX}px`
-          contentWrapper.style.top = `${top + window.scrollY}px`
-        } else if (this.position === 'bottom') {
-          contentWrapper.style.left = `${left - (contentWidth - width) / 2 + window.scrollX}px`
-          contentWrapper.style.top = `${top + height + window.scrollY}px`
-        } else if (this.position === 'left') {
-          contentWrapper.style.left = `${left - contentWidth + window.scrollX}px`
-          contentWrapper.style.top = `${top - (contentHeight - height) / 2 + window.scrollY}px`
-        } else {
-          contentWrapper.style.left = `${left + width + window.scrollX}px`
-          contentWrapper.style.top = `${top - (contentHeight - height) / 2 + window.scrollY}px`
+        const { left, top, width, height } = triggerWrapper.getBoundingClientRect()
+        const { height: contentHeight, width: contentWidth } = contentWrapper.getBoundingClientRect()
+        const positions = {
+          top: {
+            top: top + window.scrollY,
+            left: left - (contentWidth - width) / 2 + window.scrollX,
+          },
+          bottom: {
+            top: top + height + window.scrollY,
+            left: left - (contentWidth - width) / 2 + window.scrollX
+          },
+          left: {
+            top: top - (contentHeight - height) / 2 + window.scrollY,
+            left: left - contentWidth + window.scrollX,
+          },
+          right: {
+            top: top - (contentHeight - height) / 2 + window.scrollY,
+            left: left + width + window.scrollX
+          }
         }
+        contentWrapper.style.top = positions[this.position].top + 'px'
+        contentWrapper.style.left = positions[this.position].left + 'px'
       }
     }
 
