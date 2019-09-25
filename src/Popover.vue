@@ -1,9 +1,11 @@
 <template>
   <div class="s-popover" @click.stop="clickPopover">
-    <div class="content-wrapper" v-if="visible" @click.stop>
+    <div ref="contentWrapper" class="content-wrapper" v-if="visible" @click.stop>
       <slot name="content"></slot>
     </div>
-    <slot></slot>
+    <span ref="triggerWrapper">
+      <slot></slot>
+    </span>
   </div>
 </template>
 
@@ -23,7 +25,14 @@
             this.visible = false
             document.removeEventListener('click', handler)
           }
-          document.addEventListener('click', handler)
+          this.$nextTick(() => {
+            document.addEventListener('click', handler)
+            let { contentWrapper, triggerWrapper } = this.$refs
+            let { width, height, left, top } = triggerWrapper.getBoundingClientRect()
+            document.body.appendChild(contentWrapper)
+            contentWrapper.style.left = `${left + window.scrollX}px`
+            contentWrapper.style.top = `${top + window.scrollY}px`
+          })
         }
       }
     }
@@ -35,11 +44,11 @@
   .s-popover {
     display: inline-block;
     position: relative;
-    
-    .content-wrapper {
-      position: absolute;
-      bottom: 100%; left: 0;
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-    }
+  }
+  
+  .content-wrapper {
+    position: absolute;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    transform: translateY(-100%);
   }
 </style>
