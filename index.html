@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
@@ -147,26 +147,26 @@
   
   <div class="popover">
     <s-popover position="bottom">
-      <template slot="content">
+      <template v-slot:content>
         <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>
       </template>
       <s-button>点我</s-button>
     </s-popover>
     <s-popover position="top">
-      <template slot="content">
+      <template v-slot:content>
         <div>这是内容</div>
       </template>
       <s-button>点我</s-button>
     </s-popover>
     <div>
       <s-popover position="left">
-        <template slot="content">
+        <template v-slot:content>
           <div>这是内容</div>
         </template>
         <s-button>点我</s-button>
       </s-popover>
       <s-popover position="right">
-        <template slot="content">
+        <template v-slot:content>
           <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>
         </template>
         <s-button>点我</s-button>
@@ -174,13 +174,13 @@
     </div>
     <div>
       <s-popover position="left" trigger="hover">
-        <template slot="content">
+        <template v-slot:content>
           <div>这是内容</div>
         </template>
         <s-button>点我</s-button>
       </s-popover>
       <s-popover position="right" trigger="hover">
-        <template slot="content">
+        <template v-slot:content>
           <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>
         </template>
         <s-button>点我</s-button>

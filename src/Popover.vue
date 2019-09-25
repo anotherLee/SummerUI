@@ -1,13 +1,12 @@
 <template>
   <div class="s-popover" ref="popover">
-    <div
-      ref="contentWrapper"
-      class="content-wrapper"
-      :class="{[`position-${position}`]:true}" v-if="visible"
-      @mouseenter = "mouseEnterContent"
-      @mouseleave="mouseLeaveContent"
-      >
-      <slot name="content"></slot>
+    <div ref="contentWrapper"
+         class="content-wrapper"
+         :class="{[`position-${position}`]:true}"
+         v-if="visible"
+         @mouseenter="mouseEnterContent"
+         @mouseleave="mouseLeaveContent">
+      <slot name="content" :close="close"></slot>
     </div>
     <span ref="triggerWrapper" class="trigger-wrapper">
       <slot></slot>
@@ -62,9 +61,7 @@
        * 显示pop
        */
       open() {
-        if (this.trigger === 'hover') {
-          window.clearTimeout(this.timer)
-        }
+        window.clearTimeout(this.timer)
         this.visible = true
         this.$nextTick(() => {
           document.addEventListener('click', this.onClickHandler)
@@ -81,11 +78,11 @@
         }, this.trigger === 'hover' ? 250 : 0)
         document.removeEventListener('click', this.onClickHandler)
       },
-      
+
       mouseEnterContent() {
         window.clearTimeout(this.timer)
       },
-      
+
       mouseLeaveContent() {
         this.trigger === 'hover' && (this.visible = false)
       },
