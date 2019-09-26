@@ -28,4 +28,4 @@
 
 1. **如何解决border重叠以及圆角的问题** 
    - 使用 `margin: -1px`
-   - 使用 `:first-child` 和 `last-child` 
+   - 使用 `:first-child` 和 `:last-child` 

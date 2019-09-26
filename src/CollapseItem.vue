@@ -1,7 +1,7 @@
 <template>
   <div class="s-collapse-item">
-    <div class="title">{{ title }}</div>
-    <div class="content" v-if="open">
+    <div class="title" @click="toggle">{{ title }}</div>
+    <div class="content" v-if="isOpen">
       <slot></slot>
     </div>
   </div>
@@ -10,6 +10,7 @@
 <script>
   export default {
     name: 's-collapse-item',
+    inject: ['eventBus'],
     props: {
       title: {
         type: String,
@@ -18,7 +19,30 @@
     },
     data() {
       return {
-        open: true
+        isOpen: false
+      }
+    },
+    mounted() {
+      this.eventBus && this.eventBus.$on('update:selected', vm => {
+        if (vm !== this) {
+          this.close()
+        }
+      })
+    },
+    methods: {
+      toggle() {
+        if (this.isOpen) {
+          this.close()
+        } else {
+          this.open()
+          this.eventBus && this.eventBus.$emit('update:selected', this)
+        }
+      },
+      close() {
+        this.isOpen = false
+      },
+      open() {
+        this.isOpen = true
       }
     }
   }
