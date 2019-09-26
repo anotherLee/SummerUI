@@ -6,6 +6,7 @@
 
 <script>
   import Vue from 'vue'
+
   export default {
     name: 's-collapse',
     data() {
@@ -17,13 +18,41 @@
       single: {
         type: Boolean,
         default: false
+      },
+      selected: {
+        type: Array
       }
     },
     provide() {
-      if (this.single) {
-        return {
-          eventBus: this.eventBus
+      return {
+        eventBus: this.eventBus
+      }
+    },
+    mounted() {
+      // 通知儿子
+      this.eventBus.$emit('selected', this.selected)
+      // 监听儿子的变化
+      this.eventBus.$on('removeSelected', name => {
+        const copySelected = JSON.parse(JSON.stringify(this.selected))
+        const index = this.selected.indexOf(name)
+        copySelected.splice(index, 1)
+        this.notifyParentAndChildren(copySelected)
+      })
+
+      this.eventBus.$on('addSelected', name => {
+        let copySelected = JSON.parse(JSON.stringify(this.selected))
+        if (this.single) {
+          copySelected = [name]
+        } else {
+          copySelected.push(name)
         }
+        this.notifyParentAndChildren(copySelected)
+      })
+    },
+    methods: {
+      notifyParentAndChildren(copySelected) {
+        this.$emit('update:selected', copySelected)
+        this.eventBus.$emit('selected', copySelected)
       }
     }
   }

@@ -50,7 +50,8 @@ new Vue({
     loading1: false,
     loading2: false,
     inputValue: '',
-    selectedTab: 'tab3'
+    selectedTab: 'tab3',
+    selectedItem: ['1']
   },
   created() {
   },

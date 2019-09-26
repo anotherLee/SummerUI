@@ -64,6 +64,7 @@
       min-height: 80px;
       border: 1px solid black;
     }
+    
     .popover {
       padding: 200px;
     }
@@ -127,72 +128,73 @@
   <!--    <button @click="clickButton">click me</button>-->
   <!--  </div>-->
   
-<!--  <div class="tabs">-->
-<!--    <s-tabs :selected.sync="selectedTab">-->
-<!--      <s-tabs-head>-->
-<!--        <template slot="actions">-->
-<!--          <button>设置</button>-->
-<!--        </template>-->
-<!--        <s-tabs-item name="tab1" disabled>tab1</s-tabs-item>-->
-<!--        <s-tabs-item name="tab2">tab2</s-tabs-item>-->
-<!--        <s-tabs-item name="tab3">tab3</s-tabs-item>-->
-<!--      </s-tabs-head>-->
-<!--      <s-tabs-body>-->
-<!--        <s-tabs-pane name="tab1">内容1</s-tabs-pane>-->
-<!--        <s-tabs-pane name="tab2">内容2</s-tabs-pane>-->
-<!--        <s-tabs-pane name="tab3">内容3</s-tabs-pane>-->
-<!--      </s-tabs-body>-->
-<!--    </s-tabs>-->
-<!--  </div>-->
-<!--  -->
-<!--  <div class="popover">-->
-<!--    <s-popover position="bottom">-->
-<!--      <template v-slot:content>-->
-<!--        <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>-->
-<!--      </template>-->
-<!--      <s-button>点我</s-button>-->
-<!--    </s-popover>-->
-<!--    <s-popover position="top">-->
-<!--      <template v-slot:content>-->
-<!--        <div>这是内容</div>-->
-<!--      </template>-->
-<!--      <s-button>点我</s-button>-->
-<!--    </s-popover>-->
-<!--    <div>-->
-<!--      <s-popover position="left">-->
-<!--        <template v-slot:content>-->
-<!--          <div>这是内容</div>-->
-<!--        </template>-->
-<!--        <s-button>点我</s-button>-->
-<!--      </s-popover>-->
-<!--      <s-popover position="right">-->
-<!--        <template v-slot:content>-->
-<!--          <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>-->
-<!--        </template>-->
-<!--        <s-button>点我</s-button>-->
-<!--      </s-popover>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <s-popover position="left" trigger="hover">-->
-<!--        <template v-slot:content>-->
-<!--          <div>这是内容</div>-->
-<!--        </template>-->
-<!--        <s-button>点我</s-button>-->
-<!--      </s-popover>-->
-<!--      <s-popover position="right" trigger="hover">-->
-<!--        <template v-slot:content>-->
-<!--          <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>-->
-<!--        </template>-->
-<!--        <s-button>点我</s-button>-->
-<!--      </s-popover>-->
-<!--    </div>-->
-<!--  </div>-->
+  <!--  <div class="tabs">-->
+  <!--    <s-tabs :selected.sync="selectedTab">-->
+  <!--      <s-tabs-head>-->
+  <!--        <template slot="actions">-->
+  <!--          <button>设置</button>-->
+  <!--        </template>-->
+  <!--        <s-tabs-item name="tab1" disabled>tab1</s-tabs-item>-->
+  <!--        <s-tabs-item name="tab2">tab2</s-tabs-item>-->
+  <!--        <s-tabs-item name="tab3">tab3</s-tabs-item>-->
+  <!--      </s-tabs-head>-->
+  <!--      <s-tabs-body>-->
+  <!--        <s-tabs-pane name="tab1">内容1</s-tabs-pane>-->
+  <!--        <s-tabs-pane name="tab2">内容2</s-tabs-pane>-->
+  <!--        <s-tabs-pane name="tab3">内容3</s-tabs-pane>-->
+  <!--      </s-tabs-body>-->
+  <!--    </s-tabs>-->
+  <!--  </div>-->
+  <!--  -->
+  <!--  <div class="popover">-->
+  <!--    <s-popover position="bottom">-->
+  <!--      <template v-slot:content>-->
+  <!--        <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>-->
+  <!--      </template>-->
+  <!--      <s-button>点我</s-button>-->
+  <!--    </s-popover>-->
+  <!--    <s-popover position="top">-->
+  <!--      <template v-slot:content>-->
+  <!--        <div>这是内容</div>-->
+  <!--      </template>-->
+  <!--      <s-button>点我</s-button>-->
+  <!--    </s-popover>-->
+  <!--    <div>-->
+  <!--      <s-popover position="left">-->
+  <!--        <template v-slot:content>-->
+  <!--          <div>这是内容</div>-->
+  <!--        </template>-->
+  <!--        <s-button>点我</s-button>-->
+  <!--      </s-popover>-->
+  <!--      <s-popover position="right">-->
+  <!--        <template v-slot:content>-->
+  <!--          <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>-->
+  <!--        </template>-->
+  <!--        <s-button>点我</s-button>-->
+  <!--      </s-popover>-->
+  <!--    </div>-->
+  <!--    <div>-->
+  <!--      <s-popover position="left" trigger="hover">-->
+  <!--        <template v-slot:content>-->
+  <!--          <div>这是内容</div>-->
+  <!--        </template>-->
+  <!--        <s-button>点我</s-button>-->
+  <!--      </s-popover>-->
+  <!--      <s-popover position="right" trigger="hover">-->
+  <!--        <template v-slot:content>-->
+  <!--          <div>这这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字这是很多的文字是很多的文字</div>-->
+  <!--        </template>-->
+  <!--        <s-button>点我</s-button>-->
+  <!--      </s-popover>-->
+  <!--    </div>-->
+  <!--  </div>-->
   <div class="collapse" style="padding: 100px">
-    <s-collapse single>
-      <s-collapse-item title="标题1">内容1</s-collapse-item>
-      <s-collapse-item title="标题2">内容2</s-collapse-item>
-      <s-collapse-item title="标题3">内容3</s-collapse-item>
+    <s-collapse :selected.sync="selectedItem" single>
+      <s-collapse-item title="标题1" name="1">内容1</s-collapse-item>
+      <s-collapse-item title="标题2" name="2">内容2</s-collapse-item>
+      <s-collapse-item title="标题3" name="3">内容3</s-collapse-item>
     </s-collapse>
+    <div>{{ selectedItem }}</div>
   </div>
 
 </div>

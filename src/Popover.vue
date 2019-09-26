@@ -26,7 +26,7 @@
       if (this.trigger === 'click') {
         this.$refs.popover.addEventListener('click', this.clickPopover)
       } else {
-        this.$refs.popover.addEventListener('mouseenter', this.isOpen)
+        this.$refs.popover.addEventListener('mouseenter', this.open)
         this.$refs.popover.addEventListener('mouseleave', this.close)
       }
     },
@@ -52,7 +52,7 @@
           if (this.visible) {
             this.close()
           } else {
-            this.isOpen()
+            this.open()
           }
         }
       },
@@ -60,7 +60,7 @@
       /*
        * 显示pop
        */
-      isOpen() {
+      open() {
         window.clearTimeout(this.timer)
         this.visible = true
         this.$nextTick(() => {
@@ -126,7 +126,7 @@
     },
     beforeDestroy() {
       this.$refs.popover.removeEventListener('click', this.clickPopover)
-      this.$refs.popover.removeEventListener('mouseenter', this.isOpen)
+      this.$refs.popover.removeEventListener('mouseenter', this.open)
       this.$refs.popover.removeEventListener('mouseleave', this.close)
     }
   }

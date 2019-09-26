@@ -1,7 +1,7 @@
 <template>
   <div class="s-collapse-item">
     <div class="title" @click="toggle">{{ title }}</div>
-    <div class="content" v-if="isOpen">
+    <div class="content" v-if="open">
       <slot></slot>
     </div>
   </div>
@@ -15,35 +15,34 @@
       title: {
         type: String,
         required: true
+      },
+      name: {
+        type: String,
+        required: true
       }
     },
     data() {
       return {
-        isOpen: false
+        open: false
       }
     },
     mounted() {
-      this.eventBus && this.eventBus.$on('update:selected', vm => {
-        if (vm !== this) {
-          this.close()
+      this.eventBus.$on('selected', names => {
+        if (names.indexOf(this.name) >= 0) {
+          this.open = true
+        } else {
+          this.open = false
         }
       })
     },
     methods: {
       toggle() {
-        if (this.isOpen) {
-          this.close()
+        if (this.open) {
+          this.eventBus.$emit('removeSelected', this.name)
         } else {
-          this.open()
-          this.eventBus && this.eventBus.$emit('update:selected', this)
+          this.eventBus.$emit('addSelected', this.name)
         }
       },
-      close() {
-        this.isOpen = false
-      },
-      open() {
-        this.isOpen = true
-      }
     }
   }
 </script>
