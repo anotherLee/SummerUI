@@ -7,7 +7,9 @@ sidebarDepth: 2
 
 <br>
 
-<button-demo></button-demo>
+<clientOnly>
+  <button-demo></button-demo>
+</clientOnly>
 
 ```vue
 <template>
