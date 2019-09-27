@@ -49,6 +49,15 @@
 </script>
 
 <style lang="scss" type="text/scss" scoped>
+  $button-height: 32px;
+  $button-bg: white;
+  $button-active-bg: #eee;
+  $font-size: 14px;
+  $color: #333;
+  $border-radius: 4px;
+  $border-color: #999;
+  $border-color-hover: #666;
+  $button-cursor-hover: pointer;
   @keyframes spin {
     0% {
       transform: rotate(0deg)
@@ -63,20 +72,20 @@
     justify-content: center;
     align-items: center;
     vertical-align: middle;
-    height: var(--button-height);
+    height: $button-height;
     padding: 0 1em;
-    font-size: var(--font-size);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    background-color: var(--button-bg);
+    font-size: $font-size;
+    border-radius: $border-radius;
+    border: 1px solid $border-color;
+    background-color: $button-bg;
     
     &:hover {
-      border-color: var(--border-color-hover);
-      cursor: var(--button-cursor-hover);
+      border-color: $border-color-hover;
+      cursor: $button-cursor-hover;
     }
     
     &:active {
-      background-color: var(--button-active-bg);
+      background-color: $button-active-bg;
     }
     
     &:focus {
