@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper" :class="{error}">
     <input type="text" :value="value" :disabled="disabled" :readonly="readonly"
-     @change="$emit('change', $event.target.value)"
-     @input="$emit('input', $event.target.value)"
-     @focus="$emit('focus', $event.target.value)"
-     @blur="$emit('blur', $event.target.value)"
+           @change="$emit('change', $event.target.value)"
+           @input="$emit('input', $event.target.value)"
+           @focus="$emit('focus', $event.target.value)"
+           @blur="$emit('blur', $event.target.value)"
     />
     <template v-if="error">
       <Icon name="error" class="icon-error"></Icon>
@@ -43,13 +43,8 @@
 </script>
 
 <style lang="scss" scoped>
-  $height: 32px;
-  $border-color: #999;
-  $border-color-hover: #666;
-  $font-size: 12px;
-  $box-shadow-color: rgba(0, 0, 0, 0.5);
-  $disabled-color: #aaa;
-  $red: #F1453D;
+  @import "var";
+  
   .wrapper {
     display: inline-flex; align-items: center;
     font-size: $font-size;
@@ -57,7 +52,7 @@
     > :not(:last-child) { margin-right: 0.5em; }
     
     > input {
-      height: 32px;padding: 0 8px;border: 1px solid $border-color;border-radius: 4px;
+      height: $input-height;padding: 0 8px;border: 1px solid $border-color;border-radius: 4px;
       
       &:hover {border-color: $border-color-hover;}
       
