@@ -18,9 +18,6 @@
   
   </style>
   <style>
-    body {
-      font-size: 12px;
-    }
   </style>
   <style>
     .test-input {
@@ -74,21 +71,21 @@
     </s-button-group>
     <s-button>确定</s-button>
     <s-button icon="setting"></s-button>
-  <!--  <div class="test-input">-->
-  <!--    <s-input></s-input>-->
-  <!--    <s-input value="张三"></s-input>-->
-  <!--    <s-input value="张三" disabled></s-input>-->
-  <!--    <s-input value="张三" readonly></s-input>-->
-  <!--    <s-input value="张三" error="这是错误信息"></s-input>-->
-  <!--    <div class="box">-->
-  <!--      <s-input @change="inputChange"></s-input>-->
-  <!--    </div>-->
-  <!--    <div class="box">-->
-  <!--      <s-input v-model='inputValue'></s-input>-->
-  <!--      {{ inputValue }}-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  -->
+    <div class="test-input">
+      <s-input></s-input>
+      <s-input value="张三"></s-input>
+      <s-input value="张三" disabled></s-input>
+      <s-input value="张三" readonly></s-input>
+      <s-input value="张三" error="这是错误信息"></s-input>
+      <div class="box">
+        <s-input @change="inputChange"></s-input>
+      </div>
+      <div class="box">
+        <s-input v-model='inputValue'></s-input>
+        {{ inputValue }}
+      </div>
+    </div>
+    
   <!--  <div class="test-row">-->
   <!--    <s-row>-->
   <!--      <s-col span="12" class="innerDiv1" :pc="{span: 24}"></s-col>-->
@@ -179,17 +176,19 @@
   <!--      </s-popover>-->
   <!--    </div>-->
   <!--  </div>-->
-  <div class="collapse" style="padding: 100px">
+  
+  <div class="collapse" style="padding: 10px">
     <s-collapse :selected.sync="selectedItem" single>
       <s-collapse-item title="标题1" name="1">内容1</s-collapse-item>
       <s-collapse-item title="标题2" name="2">内容2</s-collapse-item>
       <s-collapse-item title="标题3" name="3">内容3</s-collapse-item>
     </s-collapse>
-    <div>{{ selectedItem }}</div>
+  </div>
+  
+  <div class="cascader" style="padding: 50px;">
+    <s-cascader :source="source"></s-cascader>
   </div>
 
 </div>
-<div id="test"></div>
-<div id="testInput"></div>
 </body>
 </html>
