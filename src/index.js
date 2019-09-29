@@ -1,6 +1,7 @@
 import Button from './Button.vue'
 import ButtonGroup from './ButtonGroup.vue'
 import Cascader from "./Cascader"
+import CascaderItems from "./CascaderItems"
 import Col from './Col'
 import Collapse from "./Collapse"
 import CollapseItem from "./CollapseItem"
@@ -26,6 +27,7 @@ import plugin from './plugin'
 Vue.component('s-button', Button)
 Vue.component('s-button-group', ButtonGroup)
 Vue.component('s-cascader', Cascader)
+Vue.component('s-cascader-item', CascaderItems)
 Vue.component('s-col', Col)
 Vue.component('s-collapse', Collapse)
 Vue.component('s-collapse-item', CollapseItem)
