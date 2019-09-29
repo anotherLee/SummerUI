@@ -21,6 +21,7 @@ import TabsItem from "./TabsItem"
 import TabsPane from "./TabsPane"
 import Toast from "./Toast"
 import Vue from 'vue'
+import db from './db'
 
 import plugin from './plugin'
 
@@ -48,6 +49,12 @@ Vue.component('s-tabs-pane', TabsPane)
 Vue.component('s-toast', Toast)
 Vue.use(plugin)
 
+function ajax(parent_id = 0) {
+  return db.filter(item => item.parent_id === parent_id)
+}
+
+console.log(ajax())
+
 new Vue({
   el: '#app',
   data: {
@@ -56,42 +63,7 @@ new Vue({
     inputValue: '',
     selectedTab: 'tab3',
     selectedItem: ['1'],
-    source: [
-      {
-        name: '浙江',
-        children: [
-          {
-            name: '杭州',
-            children: [
-              { name: '上城区' },
-              { name: '下城区' },
-              { name: '江干区' }
-            ]
-          },
-          {
-            name: '嘉兴',
-            children: [
-              { name: '南湖' },
-              { name: '秀洲' },
-              { name: '嘉善' },
-            ]
-          },
-        ]
-      },
-      {
-        name: '福建',
-        children: [
-          {
-            name: '福州',
-            children: [
-              { name: '鼓楼' },
-              { name: '台江' },
-              { name: '仓山' },
-            ]
-          },
-        ]
-      }
-    ],
+    source: ajax(),
     cascaderSelected: []
   },
   created() {

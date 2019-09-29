@@ -81,7 +81,7 @@
     .left {
       padding: 0.3em 0;
       height: 100%;
-      
+      overflow: auto;
       .label {
         display: flex; align-items: center;
         padding: 0.3em 1em;
