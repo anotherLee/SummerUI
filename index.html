@@ -186,7 +186,8 @@
   </div>
   
   <div class="cascader" style="padding: 10px">
-    <s-cascader :source="source" popover-height="200px"></s-cascader>
+    <div>{{ cascaderSelected }}</div>
+    <s-cascader :source="source" popover-height="200px" :selected="cascaderSelected" @item-selected="getNewSelected"></s-cascader>
   </div>
 
 </div>

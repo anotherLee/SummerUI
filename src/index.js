@@ -91,7 +91,8 @@ new Vue({
           },
         ]
       }
-    ]
+    ],
+    cascaderSelected: []
   },
   created() {
   },
@@ -104,6 +105,10 @@ new Vue({
       this.$toast('很很多文字很多', {
         closeButton: {}
       })
+    },
+    getNewSelected(newItem) {
+      console.log('newItem: ', newItem)
+      this.cascaderSelected = newItem
     }
   }
 })
