@@ -50,10 +50,12 @@ Vue.component('s-toast', Toast)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
-  return db.filter(item => item.parent_id === parent_id)
+  return new Promise(function (resolve, reject) {
+    window.setTimeout(() => {
+      resolve(db.filter(item => item.parent_id === parent_id))
+    }, 1000)
+  })
 }
-
-console.log(ajax())
 
 new Vue({
   el: '#app',
@@ -63,10 +65,13 @@ new Vue({
     inputValue: '',
     selectedTab: 'tab3',
     selectedItem: ['1'],
-    source: ajax(),
+    source: [],
     cascaderSelected: []
   },
   created() {
+    ajax(0).then(res => {
+      this.source = res
+    })
   },
   methods: {
     inputChange(e) {
@@ -79,8 +84,14 @@ new Vue({
       })
     },
     getNewSelected(newItem) {
-      console.log('newItem: ', newItem)
       this.cascaderSelected = newItem
+    },
+    loadData(node, callback) {
+      const { id } = node
+      ajax(id).then(result => {
+        // console.log(result)
+        callback(result)
+      })
     }
   }
 })

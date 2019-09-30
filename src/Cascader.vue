@@ -1,6 +1,6 @@
 <template>
   <div class="s-cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible">
+    <div class="trigger" @click="switchPopover">
       {{ result }}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
@@ -32,6 +32,9 @@
       },
       selected: {
         type: Array
+      },
+      loadData: {
+        type: Function
       }
     },
     data() {
@@ -47,9 +50,18 @@
     mounted() {
     },
     methods: {
+      switchPopover() {
+        this.popoverVisible = !this.popoverVisible
+      },
       onUpdateSelected(newSelected) {
         this.$emit('item-selected', newSelected)
-      }
+        const lastItem = newSelected[newSelected.length - 1]
+        const callback = (result) => {
+          // 找到被点击的那个，把result放到children里面
+          this.$set(lastItem, 'children', result)
+        }
+        this.loadData(lastItem, callback)
+      },
     },
     components: {
       CascaderItems
@@ -69,6 +81,7 @@
       height: $input-height;min-width: 10em;
       padding: 0 0.5em;
       border: 1px solid $border-color; border-radius: $border-radius;
+      cursor: pointer;
     }
     
     .popover-wrapper {
