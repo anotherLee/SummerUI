@@ -60,32 +60,32 @@
 </head>
 <body>
 <div id="app">
-    <s-button icon="setting">我爱JS</s-button>
-    <s-button icon="right" icon-position="right" :loading="true">点击</s-button>
-    <s-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">我爱JS</s-button>
-    <s-button>我爱你</s-button>
-    <s-button-group>
-      <s-button icon="left">向左</s-button>
-      <s-button icon="setting">中间</s-button>
-      <s-button icon="right">向右</s-button>
-    </s-button-group>
-    <s-button>确定</s-button>
-    <s-button icon="setting"></s-button>
-    <div class="test-input">
-      <s-input></s-input>
-      <s-input value="张三"></s-input>
-      <s-input value="张三" disabled></s-input>
-      <s-input value="张三" readonly></s-input>
-      <s-input value="张三" error="这是错误信息"></s-input>
-      <div class="box">
-        <s-input @change="inputChange"></s-input>
-      </div>
-      <div class="box">
-        <s-input v-model='inputValue'></s-input>
-        {{ inputValue }}
-      </div>
-    </div>
-    
+<!--    <s-button icon="setting">我爱JS</s-button>-->
+<!--    <s-button icon="right" icon-position="right" :loading="true">点击</s-button>-->
+<!--    <s-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">我爱JS</s-button>-->
+<!--    <s-button>我爱你</s-button>-->
+<!--    <s-button-group>-->
+<!--      <s-button icon="left">向左</s-button>-->
+<!--      <s-button icon="setting">中间</s-button>-->
+<!--      <s-button icon="right">向右</s-button>-->
+<!--    </s-button-group>-->
+<!--    <s-button>确定</s-button>-->
+<!--    <s-button icon="setting"></s-button>-->
+<!--    <div class="test-input">-->
+<!--      <s-input></s-input>-->
+<!--      <s-input value="张三"></s-input>-->
+<!--      <s-input value="张三" disabled></s-input>-->
+<!--      <s-input value="张三" readonly></s-input>-->
+<!--      <s-input value="张三" error="这是错误信息"></s-input>-->
+<!--      <div class="box">-->
+<!--        <s-input @change="inputChange"></s-input>-->
+<!--      </div>-->
+<!--      <div class="box">-->
+<!--        <s-input v-model='inputValue'></s-input>-->
+<!--        {{ inputValue }}-->
+<!--      </div>-->
+<!--    </div>-->
+  
   <!--  <div class="test-row">-->
   <!--    <s-row>-->
   <!--      <s-col span="12" class="innerDiv1" :pc="{span: 24}"></s-col>-->
@@ -177,22 +177,31 @@
   <!--    </div>-->
   <!--  </div>-->
   
-  <div class="collapse" style="padding: 10px">
-    <s-collapse :selected.sync="selectedItem" single>
-      <s-collapse-item title="标题1" name="1">内容1</s-collapse-item>
-      <s-collapse-item title="标题2" name="2">内容2</s-collapse-item>
-      <s-collapse-item title="标题3" name="3">内容3</s-collapse-item>
-    </s-collapse>
-  </div>
+<!--  <div class="collapse" style="padding: 10px">-->
+<!--    <s-collapse :selected.sync="selectedItem" single>-->
+<!--      <s-collapse-item title="标题1" name="1">内容1</s-collapse-item>-->
+<!--      <s-collapse-item title="标题2" name="2">内容2</s-collapse-item>-->
+<!--      <s-collapse-item title="标题3" name="3">内容3</s-collapse-item>-->
+<!--    </s-collapse>-->
+<!--  </div>-->
+
+<!--  <div>{{ cascaderSelected }}</div>-->
+<!--  <div class="cascader" style="padding: 10px">-->
+<!--    <s-cascader-->
+<!--      :source.sync="source"-->
+<!--      popover-height="200px"-->
+<!--      :selected="cascaderSelected"-->
+<!--      :load-data="loadData"-->
+<!--      @item-selected="getNewSelected"-->
+<!--    ></s-cascader>-->
+<!--  </div>-->
   
-  <div class="cascader" style="padding: 10px">
-    <s-cascader
-      :source="source"
-      popover-height="200px"
-      :selected="cascaderSelected"
-      :load-data="loadData"
-      @item-selected="getNewSelected"
-    ></s-cascader>
+  <div class="slides">
+    <s-slides>
+      <s-slide-item><div>1</div></s-slide-item>
+      <s-slide-item><div>2</div></s-slide-item>
+      <s-slide-item><div>3</div></s-slide-item>
+    </s-slides>
   </div>
 
 </div>

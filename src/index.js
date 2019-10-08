@@ -20,6 +20,8 @@ import TabsHead from "./TabsHead"
 import TabsItem from "./TabsItem"
 import TabsPane from "./TabsPane"
 import Toast from "./Toast"
+import Slides from "./Slides"
+import SlideItem from "./SlideItem"
 import Vue from 'vue'
 import db from './db'
 
@@ -47,6 +49,8 @@ Vue.component('s-tabs-head', TabsHead)
 Vue.component('s-tabs-item', TabsItem)
 Vue.component('s-tabs-pane', TabsPane)
 Vue.component('s-toast', Toast)
+Vue.component('s-slides', Slides)
+Vue.component('s-slide-item', SlideItem)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {

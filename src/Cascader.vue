@@ -53,12 +53,48 @@
       switchPopover() {
         this.popoverVisible = !this.popoverVisible
       },
-      onUpdateSelected(newSelected) {
+      onUpdateSelected: function (newSelected) {
         this.$emit('item-selected', newSelected)
         const lastItem = newSelected[newSelected.length - 1]
+
         const callback = (result) => {
           // 找到被点击的那个，把result放到children里面
-          this.$set(lastItem, 'children', result)
+          // this.$set(lastItem, 'children', result)
+          const copy = JSON.parse(JSON.stringify(this.source))
+          let findTarget = (arr, id) => {
+            let hasChildren = []
+            let noChildren = []
+            arr.forEach(item => {
+              if (item.children) {
+                hasChildren.push(item)
+              } else {
+                noChildren.push(item)
+              }
+            })
+
+            let found = noChildren.filter(child => child.id === id)[0]
+            if (found) {
+              return found
+            } else {
+              found = hasChildren.filter(child => child.id === id)[0]
+              if (found) {
+                return found
+              } else {
+                for (let i = 0; i < hasChildren.length; ++i) {
+                  found = findTarget(hasChildren[i].children, id)
+                  if (found) {
+                    return found
+                  }
+                }
+                return undefined
+              }
+            }
+          }
+          const res = findTarget(copy, lastItem.id)
+          res.children = result
+          console.log('target', res)
+          console.log('copy', copy)
+          this.$emit('update:source', copy)
         }
         this.loadData(lastItem, callback)
       },

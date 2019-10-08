@@ -7,7 +7,7 @@
       </div>
     </div>
     
-    <div class="right" v-if="rightItems && rightVisible">
+    <div class="right" v-if="rightItems">
       <s-cascader-items
         :source-items="rightItems"
         :level="level + 1"
@@ -44,13 +44,12 @@
     },
     computed: {
       rightItems() {
-        if (this.leftSelected && this.leftSelected.children) {
-          return this.leftSelected.children
+        if (this.selected[this.level]) {
+          if (this.leftSelected && this.leftSelected.children) {
+            return this.leftSelected.children
+          }
+          return null
         }
-        return null
-      },
-      rightVisible() {
-        return this.sourceItems.some(item => item.children === this.rightItems)
       }
     },
     methods: {
