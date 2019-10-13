@@ -1,5 +1,6 @@
 <template>
   <div class="s-slides">
+    <div class="s-slides-window"></div>
     <slot></slot>
   </div>
 </template>
@@ -8,8 +9,12 @@
   export default {
     name: 's-slides',
     mounted() {
-      const first = this.$children[0]
+      const [first, second] = this.$children
       first.visible = true
+      setTimeout(() => {
+        first.visible = false
+        second.visible = true
+      }, 3000)
     }
   }
 </script>
@@ -18,6 +23,9 @@
   @import 'var';
   .s-slides {
     position: relative;
-    border: 1px solid $border-color;
+    width: 300px; height: 200px;
+    &-window {
+    
+    }
   }
 </style>
