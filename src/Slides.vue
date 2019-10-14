@@ -4,7 +4,8 @@
       <slot></slot>
     </div>
     <div class="s-dots">
-      <span v-for="(n, index) in childrenLength" :class="{ active: selectedIndex === index }"></span>
+      <span v-for="(n, index) in childrenLength" :class="{ active: selectedIndex === index }"
+            @click="select(index)"></span>
     </div>
   </div>
 </template>
@@ -21,13 +22,14 @@
         default: true
       }
     },
-    
+
     data() {
       return {
-        childrenLength: 0
+        childrenLength: 0,
+        lastSelectedIndex: undefined, // 上次选中的索引
       }
     },
-    
+
     computed: {
       /*
        * 所有children组件的name
@@ -57,13 +59,21 @@
       this.updateChildren()
     },
     methods: {
+      /*
+       * 自动播放
+       */
       playAutomatically() {
         let index = this.names.indexOf(this.getSelected())
 
         const run = () => {
-          if (index === this.names.length) { index = 0 }
-          if (index === -1) { index = this.names.length - 1 }
-          this.$emit('update:selected', this.names[index])
+          if (index === this.names.length) {
+            index = 0
+          }
+          if (index === -1) {
+            index = this.names.length - 1
+          }
+          // 相当于选中小点
+          this.select(index)
           index--
           setTimeout(run, 3000)
         }
@@ -72,21 +82,33 @@
           run()
         }
       },
+
+      /*
+       * 找到当前页的name
+       */
       getSelected() {
         let [first] = this.$children
         return this.selected || first.name
       },
+
+      /*
+       * 更新children组件
+       */
       updateChildren() {
         let [first] = this.$children
         this.$children.forEach(vm => {
           vm.selected = this.selected || first.name
-          
-          let newIndex = this.names.indexOf(this.selected)
-          let vmIndex = this.names.indexOf(vm.name)
-          vm.reverse = vmIndex >= newIndex
         })
       },
 
+      /*
+       * 选中小点
+       */
+      select(index) {
+        this.lastSelectedIndex = index
+        // 在这里设置完以后，轮播就滚到下一页了
+        this.$emit('update:selected', this.names[index])
+      }
     }
   }
 </script>
@@ -97,7 +119,7 @@
   .s-slides {
     position: relative;
     width: 100%; height: 100%;
-  
+    
     &-window {
       position: relative;
       width: 100%; height: 100%;
@@ -108,6 +130,7 @@
     .s-dots {
       position: absolute;
       bottom: 10%; left: 50%; transform: translateX(-50%);
+      
       > span {
         display: inline-block;
         width: 15px; height: 15px;
@@ -115,6 +138,7 @@
         border: 1px solid #ddd;
         border-radius: 50%;
         cursor: pointer;
+        
         &.active {
           background-color: #ddd;
         }
