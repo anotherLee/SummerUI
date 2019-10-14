@@ -22,6 +22,9 @@ import TabsPane from "./tabs/TabsPane"
 import Toast from "./toast/Toast"
 import Slides from "./slide/Slides"
 import SlideItem from "./slide/SlideItem"
+import Nav from './nav/Nav'
+import NavItem from "./nav/NavItem"
+import NavSub from "./nav/NavSub"
 import Vue from 'vue'
 import db from './db'
 
@@ -51,6 +54,9 @@ Vue.component('s-tabs-pane', TabsPane)
 Vue.component('s-toast', Toast)
 Vue.component('s-slides', Slides)
 Vue.component('s-slide-item', SlideItem)
+Vue.component('s-nav', Nav)
+Vue.component('s-nav-item', NavItem)
+Vue.component('s-nav-sub', NavSub)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
@@ -71,7 +77,8 @@ new Vue({
     selectedItem: ['1'],
     source: [],
     cascaderSelected: [],
-    itemSelected: "1"
+    itemSelected: "1",
+    navSelected: "about"
   },
   created() {
     // ajax(0).then(res => {
