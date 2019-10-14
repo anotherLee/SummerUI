@@ -196,8 +196,8 @@
 <!--    ></s-cascader>-->
 <!--  </div>-->
   
-  <div class="slides">
-    <s-slides :selected="itemSelected">
+  <div class="slides" style="width: 100%; height: 200px;">
+    <s-slides :selected.sync="itemSelected">
       <s-slide-item name="1">1</s-slide-item>
       <s-slide-item name="2">2</s-slide-item>
       <s-slide-item name="3">3</s-slide-item>

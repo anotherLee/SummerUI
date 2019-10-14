@@ -78,15 +78,15 @@ new Vue({
     //   this.source = res
     // })
 
-    let n = 1
-    setInterval(() => {
-      n++
-      if (n === 4) {
-        n = 1
-      }
-      this.itemSelected = n.toString()
-      console.log(this.itemSelected)
-    }, 3000)
+    // let n = 1
+    // setInterval(() => {
+    //   n++
+    //   if (n === 4) {
+    //     n = 1
+    //   }
+    //   this.itemSelected = n.toString()
+    //   console.log(this.itemSelected)
+    // }, 3000)
   },
   methods: {
     inputChange(e) {
