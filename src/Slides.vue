@@ -8,22 +8,40 @@
 <script>
   export default {
     name: 's-slides',
+    props: {
+      selected: {
+        type: String
+      }
+    },
+
     mounted() {
-      const [first, second] = this.$children
-      first.visible = true
-      setTimeout(() => {
-        first.visible = false
-        second.visible = true
-      }, 3000)
+      this.updateChildren()
+    },
+
+    /*
+     * 当props或者data更新后都会触发
+     */
+    updated() {
+      this.updateChildren()
+    },
+    methods: {
+      updateChildren() {
+        let [first] = this.$children
+        this.$children.forEach(vm => {
+          vm.selected = this.selected || first.name
+        })
+      },
+
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import 'var';
+  
   .s-slides {
     position: relative;
-    width: 300px; height: 200px;
+    
     &-window {
     
     }

@@ -70,12 +70,23 @@ new Vue({
     selectedTab: 'tab3',
     selectedItem: ['1'],
     source: [],
-    cascaderSelected: []
+    cascaderSelected: [],
+    itemSelected: "1"
   },
   created() {
-    ajax(0).then(res => {
-      this.source = res
-    })
+    // ajax(0).then(res => {
+    //   this.source = res
+    // })
+
+    let n = 1
+    setInterval(() => {
+      n++
+      if (n === 4) {
+        n = 1
+      }
+      this.itemSelected = n.toString()
+      console.log(this.itemSelected)
+    }, 3000)
   },
   methods: {
     inputChange(e) {
