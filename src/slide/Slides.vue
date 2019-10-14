@@ -114,7 +114,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'var';
+  @import '../var';
   
   .s-slides {
     position: relative;

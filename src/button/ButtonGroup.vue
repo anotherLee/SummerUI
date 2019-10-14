@@ -20,7 +20,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'var';
+  @import '../var';
   .s-button-group {
     display: inline-flex;
     justify-content: center;

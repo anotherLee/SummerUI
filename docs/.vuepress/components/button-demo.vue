@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Button from "../../../src/Button"
+  import Button from "../../../src/button/Button"
   export default {
     components: {
       's-button': Button

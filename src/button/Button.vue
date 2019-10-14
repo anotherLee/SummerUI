@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import Icon from './Icon'
+  import Icon from '../icon/Icon'
 
   export default {
     name: 's-button',
@@ -49,7 +49,7 @@
 </script>
 
 <style lang="scss" type="text/scss" scoped>
-  @import "var";
+  @import "../var";
   
   @keyframes spin {
     0% {

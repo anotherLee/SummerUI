@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import Icon from './Icon'
+  import Icon from '../icon/Icon'
 
   export default {
     name: 's-input',
@@ -43,7 +43,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "var";
+  @import "../var";
   
   .wrapper {
     display: inline-flex; align-items: center;

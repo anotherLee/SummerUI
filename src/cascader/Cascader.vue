@@ -106,7 +106,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'var';
+  @import '../var';
   
   .s-cascader {
     position: relative;
