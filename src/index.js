@@ -78,7 +78,7 @@ new Vue({
     source: [],
     cascaderSelected: [],
     itemSelected: "1",
-    navSelected: ["culture"]
+    navSelected: ["home"]
   },
   created() {
     // ajax(0).then(res => {

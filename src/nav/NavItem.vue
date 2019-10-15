@@ -31,11 +31,29 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../var';
   .s-nav-item {
+    position: relative;
     padding: 10px 20px;
     cursor: pointer;
     &.active {
-      background-color: red;
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        position: absolute; left: 0; bottom: 0;
+        border-bottom: 2px solid $blue;
+      }
+    }
+  }
+  
+  .s-nav-sub .s-nav-item {
+    &.active {
+      background-color: $grey;
+      color: $color;
+      &::after {
+        display: none;
+      }
     }
   }
 </style>

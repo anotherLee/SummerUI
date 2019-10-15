@@ -26,6 +26,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '../var';
   .s-nav-sub {
     position: relative;
     .nav-sub-title {
@@ -36,8 +37,14 @@
     }
     .nav-sub-popover {
       position: absolute; left: 0; top: 100%;
+      margin-top: 3px;
       white-space: nowrap;
-      border: 1px solid #000;
+      min-width: 6em;
+      background-color: #fff;
+      color: $light-color;
+      font-size: $font-size;
+      box-shadow: 0 0 3px $box-shadow-color;
+      border-radius: $border-radius;
     }
   }
   .s-nav-sub .s-nav-sub .nav-sub-popover {
