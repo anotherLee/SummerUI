@@ -17,6 +17,16 @@
         default: false
       }
     },
+    data() {
+      return {
+        items: []
+      }
+    },
+    provide() {
+      return {
+        root: this
+      }
+    },
     mounted() {
       this.updateChildren()
       this.listenToChilren()
@@ -24,18 +34,16 @@
     updated() {
       this.updateChildren()
     },
-    computed: {
-      items() {
-        return this.$children.filter(vm => vm.$options.name === 's-nav-item')
-      }
-    },
     methods: {
+      addItems(vm) {
+        this.items.push(vm)
+      },
       /*
        * 判断selected数组里有没有nav-item的name,并设置是否选中
        */
       updateChildren() {
         this.items.forEach(vm => {
-          vm.selected = this.selected.indexOf(vm.name) >= 0;
+          vm.selected = this.selected.indexOf(vm.name) >= 0
         })
       },
       

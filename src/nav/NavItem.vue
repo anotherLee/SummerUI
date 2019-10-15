@@ -18,8 +18,9 @@
         selected: false
       }
     },
-    mounted() {
-    
+    inject: ['root'],
+    created() {
+      this.root.addItems(this)
     },
     methods: {
       onClick() {
