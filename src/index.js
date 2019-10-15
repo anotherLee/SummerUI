@@ -78,7 +78,7 @@ new Vue({
     source: [],
     cascaderSelected: [],
     itemSelected: "1",
-    navSelected: "about"
+    navSelected: ["home"]
   },
   created() {
     // ajax(0).then(res => {
@@ -96,24 +96,24 @@ new Vue({
     // }, 3000)
   },
   methods: {
-    inputChange(e) {
-      console.log(1)
-      console.log(e)
-    },
-    clickButton() {
-      this.$toast('很很多文字很多', {
-        closeButton: {}
-      })
-    },
-    getNewSelected(newItem) {
-      this.cascaderSelected = newItem
-    },
-    loadData(node, callback) {
-      const { id } = node
-      ajax(id).then(result => {
-        // console.log(result)
-        callback(result)
-      })
-    }
+    // inputChange(e) {
+    //   console.log(1)
+    //   console.log(e)
+    // },
+    // clickButton() {
+    //   this.$toast('很很多文字很多', {
+    //     closeButton: {}
+    //   })
+    // },
+    // getNewSelected(newItem) {
+    //   this.cascaderSelected = newItem
+    // },
+    // loadData(node, callback) {
+    //   const { id } = node
+    //   ajax(id).then(result => {
+    //     // console.log(result)
+    //     callback(result)
+    //   })
+    // }
   }
 })
