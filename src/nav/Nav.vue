@@ -9,12 +9,7 @@
     name: 's-nav',
     props: {
       selected: {
-        type: Array,
-        default: () => []
-      },
-      multiple: {
-        type: Boolean,
-        default: false
+        type: String,
       },
       vertical: {
         type: Boolean,
@@ -48,25 +43,17 @@
        */
       updateChildren() {
         this.items.forEach(vm => {
-          vm.selected = this.selected.indexOf(vm.name) >= 0
+          vm.selected = this.selected === vm.name
         })
       },
-      
+
       /*
        * 监听nav-item
        */
       listenToChilren() {
         this.items.forEach(vm => {
-          vm.$on('add:selected', (name) => {
-            if (this.selected.indexOf(name) === -1) {
-              if (this.multiple) {
-                const copy = JSON.parse(JSON.stringify(this.selected))
-                copy.push(name)
-                this.$emit('update:selected', copy)
-              } else {
-                this.$emit('update:selected', [name])
-              }
-            }
+          vm.$on('update:selected', (name) => {
+            this.$emit('update:selected', name)
           })
         })
       }
@@ -76,9 +63,11 @@
 
 <style lang="scss" scoped>
   @import '../var';
+  
   .s-nav {
     display: flex;
     border-bottom: 1px solid $grey;
+    
     &.vertical {
       flex-direction: column;
       border: 1px solid $grey;
