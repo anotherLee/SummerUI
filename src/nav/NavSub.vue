@@ -42,7 +42,9 @@
         this.open = !this.open
       },
       close() {
-        this.open = false
+        if (!this.root.vertical) {
+          this.open = false
+        }
       },
       updateNamePath() {
         if (this.root.namePath.indexOf(this.name) < 0) {
