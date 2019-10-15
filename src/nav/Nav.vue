@@ -1,5 +1,5 @@
 <template>
-  <div class="s-nav">
+  <div class="s-nav" :class="{vertical}">
     <slot></slot>
   </div>
 </template>
@@ -15,11 +15,16 @@
       multiple: {
         type: Boolean,
         default: false
+      },
+      vertical: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
       return {
-        items: []
+        items: [],
+        namePath: []
       }
     },
     provide() {
@@ -74,5 +79,9 @@
   .s-nav {
     display: flex;
     border-bottom: 1px solid $grey;
+    &.vertical {
+      flex-direction: column;
+      border: 1px solid $grey;
+    }
   }
 </style>

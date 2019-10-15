@@ -7,6 +7,7 @@
 <script>
   export default {
     name: 's-nav-item',
+    inject: ['root'],
     props: {
       name: {
         type: String,
@@ -18,15 +19,16 @@
         selected: false
       }
     },
-    inject: ['root'],
     created() {
       this.root.addItems(this)
     },
     methods: {
       onClick() {
+        this.root.namePath = []
+        this.$parent.updateNamePath && this.$parent.updateNamePath()
         this.$emit('add:selected', this.name)
       }
-    }
+    },
   }
 </script>
 
