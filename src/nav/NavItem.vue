@@ -1,5 +1,5 @@
 <template>
-  <div class="s-nav-item" :class="{ active: selected }" @click="onClick">
+  <div class="s-nav-item" :class="{ active: selected, vertical: root.vertical }" @click="onClick">
     <slot></slot>
   </div>
 </template>
@@ -38,7 +38,7 @@
     position: relative;
     padding: 10px 20px;
     cursor: pointer;
-    &.active {
+    &.active:not(.vertical) {
       &::after {
         content: '';
         display: block;
@@ -46,6 +46,9 @@
         position: absolute; left: 0; bottom: 0;
         border-bottom: 2px solid $blue;
       }
+    }
+    &.vertical.active {
+      color: $blue;
     }
   }
   

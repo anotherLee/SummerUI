@@ -1,8 +1,8 @@
 <template>
   <div class="s-nav-sub" v-click-outside="close">
-    <span class="nav-sub-title" @click="onClick" :class="{ active }">
+    <span class="nav-sub-title" @click="onClick" :class="{ active, vertical: root.vertical }">
       <slot name="title"></slot>
-      <span class="nav-sub-icons" :class="[open ? 'left' : 'right']">
+      <span class="nav-sub-icons" :class="[open ? 'left' : 'right', root.vertical ? 'vertical' : '']">
         <Icon class="nav-sub-icon" name="left"></Icon>
       </span>
     </span>
@@ -122,9 +122,17 @@
         &.right {
           transform: rotate(-180deg);
         }
+        
+        &.vertical {
+          transform: rotate(90deg);
+        }
+        
+        &.vertical.right {
+          transform: rotate(-90deg);
+        }
       }
       
-      &.active {
+      &.active:not(.vertical) {
         &:after {
           content: '';
           display: block;
@@ -132,6 +140,9 @@
           position: absolute; bottom: 0; left: 0;
           border-bottom: 2px solid $blue;
         }
+      }
+      &.vertical.active {
+        color: $blue;
       }
     }
     
@@ -158,10 +169,14 @@
   
   /* 这个样式很重要,嵌套的时候用的 */
   .s-nav-sub .s-nav-sub {
-    .nav-sub-title.active {
+    .nav-sub-title.active:not(.vertical) {
       &::after {
         display: none;
       }
+    }
+    
+    .nav-sub-title.vertical.active {
+      color: inherit;
     }
     
     .nav-sub-popover {
