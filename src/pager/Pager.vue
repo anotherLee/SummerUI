@@ -1,6 +1,6 @@
 <template>
-  <div class="s-pager">
-    <span class="s-pager-nav prev" :class="{disabled: currentPage === 1}">
+  <div class="s-pager" :class="{ hide: hideIfOnePage && totalPages === 1 }">
+    <span class="s-pager-nav prev" :class="{disabled: currentPage === 1}" @click="onClick(currentPage - 1)">
       <Icon name="back"></Icon>
     </span>
     <template v-for="page in pages">
@@ -14,10 +14,10 @@
         </span>
       </template>
       <template v-else>
-        <span class="ordinary">{{ page }}</span>
+        <span class="ordinary" @click="onClick(page)">{{ page }}</span>
       </template>
     </template>
-    <span class="s-pager-nav next" :class="{disabled: currentPage === totalPages}">
+    <span class="s-pager-nav next" :class="{disabled: currentPage === totalPages}" @click="onClick(currentPage + 1)">
       <Icon name="next"></Icon>
     </span>
   </div>
@@ -44,24 +44,29 @@
     },
 
     data() {
-      let pages = [
-        1, this.totalPages, this.currentPage, this.currentPage - 1, this.currentPage - 2,
-        this.currentPage + 1, this.currentPage + 2
-      ]
-      let newArr = this.sortAndUnique(pages).filter(n => n >= 1 && n <= this.totalPages)
-      let result = newArr.reduce((prev, current, index) => {
-        let next = newArr[index + 1]
-        if (next && next - current > 1) {
-          prev.push(current)
-          prev.push('...')
-        } else {
-          prev.push(current)
-        }
-        return prev
-      }, [])
-
       return {
-        pages: result
+      }
+    },
+    
+    computed: {
+      pages() {
+        let pages = [
+          1, this.totalPages, this.currentPage, this.currentPage - 1, this.currentPage - 2,
+          this.currentPage + 1, this.currentPage + 2
+        ]
+        let newArr = this.sortAndUnique(pages).filter(n => n >= 1 && n <= this.totalPages)
+        let result = newArr.reduce((prev, current, index) => {
+          let next = newArr[index + 1]
+          if (next && next - current > 1) {
+            prev.push(current)
+            prev.push('...')
+          } else {
+            prev.push(current)
+          }
+          return prev
+        }, [])
+        
+        return result
       }
     },
 
@@ -71,6 +76,11 @@
         let obj = {}
         arr.forEach(n => obj[n] = true)
         return Object.keys(obj).map(key => parseInt(key))
+      },
+      onClick(number) {
+        if (number >= 1 && number <= this.totalPages) {
+          this.$emit('update:currentPage', number)
+        }
       }
     },
 
@@ -86,6 +96,10 @@
   .s-pager {
     display: flex; justify-content: flex-start; align-items: center;
     
+    &.hide {
+      display: none;
+    }
+    
     > span {
       display: inline-flex; justify-content: center; align-items: center;
       min-width: 24px; min-height: 24px;
@@ -94,6 +108,7 @@
       border-radius: $border-radius;
       color: $color;
       cursor: pointer;
+      user-select: none;
       
       &:hover {border: 1px solid $blue;}
       

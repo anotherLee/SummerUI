@@ -250,7 +250,7 @@
 <!--    </s-nav>-->
 <!--  </div>-->
   <div class="pages" style="margin: 100px;">
-    <s-pager :total-pages="20" :current-page="20"></s-pager>
+    <s-pager :total-pages="10" :current-page.sync="currentPage" :hide-if-one-page="false"></s-pager>
   </div>
 
 </div>
