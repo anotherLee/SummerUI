@@ -1,10 +1,31 @@
 <template>
   <div class="s-pager">
-    <span class="s-pager-item" :class="{active: page === currentPage, separator: page === '...'}" v-for="page in pages">{{ page }}</span>
+    <span class="s-pager-nav prev" :class="{disabled: currentPage === 1}">
+      <Icon name="back"></Icon>
+    </span>
+    <template v-for="page in pages">
+      <template v-if="page === currentPage">
+        <span class="s-current">{{ page }}</span>
+      </template>
+      
+      <template v-else-if="page === '...'">
+        <span class="s-separator">
+          <Icon name="dots"></Icon>
+        </span>
+      </template>
+      <template v-else>
+        <span class="ordinary">{{ page }}</span>
+      </template>
+    </template>
+    <span class="s-pager-nav next" :class="{disabled: currentPage === totalPages}">
+      <Icon name="next"></Icon>
+    </span>
   </div>
 </template>
 
 <script>
+  import Icon from '../icon/Icon'
+
   export default {
     name: 's-pager',
     props: {
@@ -27,10 +48,10 @@
         1, this.totalPages, this.currentPage, this.currentPage - 1, this.currentPage - 2,
         this.currentPage + 1, this.currentPage + 2
       ]
-      let newArr = this.sortAndUnique(pages)
+      let newArr = this.sortAndUnique(pages).filter(n => n >= 1 && n <= this.totalPages)
       let result = newArr.reduce((prev, current, index) => {
         let next = newArr[index + 1]
-        if ( next && next - current > 1) {
+        if (next && next - current > 1) {
           prev.push(current)
           prev.push('...')
         } else {
@@ -38,12 +59,12 @@
         }
         return prev
       }, [])
-      
+
       return {
         pages: result
       }
     },
-    
+
     methods: {
       sortAndUnique(arr) {
         arr = arr.sort((a, b) => a - b)
@@ -51,13 +72,20 @@
         arr.forEach(n => obj[n] = true)
         return Object.keys(obj).map(key => parseInt(key))
       }
+    },
+
+    components: {
+      Icon
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import '../var';
+  
   .s-pager {
+    display: flex; justify-content: flex-start; align-items: center;
+    
     > span {
       display: inline-flex; justify-content: center; align-items: center;
       min-width: 24px; min-height: 24px;
@@ -66,14 +94,21 @@
       border-radius: $border-radius;
       color: $color;
       cursor: pointer;
-      &.active, &:hover {
-        border: 1px solid $blue;
+      
+      &:hover {border: 1px solid $blue;}
+      
+      &.s-current {border: 1px solid $blue;cursor: default;}
+      
+      &.s-separator {border: none;cursor: pointer;}
+      
+      &.s-pager-nav {
+        &:hover {
+          border: 1px solid #e1e1e1;
+        }
       }
-      &.active {
-        cursor: default;
-      }
-      &.separator {
-        border: none;
+      &.s-pager-nav.disabled {
+        background-color: $grey;
+        cursor: not-allowed;
       }
     }
   }
