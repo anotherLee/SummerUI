@@ -203,51 +203,54 @@
 <!--      <s-slide-item name="3">3</s-slide-item>-->
 <!--    </s-slides>-->
 <!--  </div>-->
-  
-  <div>{{ navSelected }}</div>
-  <div class="nav">
-    <s-nav :selected.sync="navSelected" vertical style="width: 200px">
-      <s-nav-item name="home">首页</s-nav-item>
-      <s-nav-sub name="about">
-        <template v-slot:title>关于</template>
-        <s-nav-item name="culture">企业文化</s-nav-item>
-        <s-nav-item name="developers">开发团队</s-nav-item>
-        <s-nav-sub name="contact">
-          <template v-slot:title>联系方式</template>
-          <s-nav-item name="wechat">微信</s-nav-item>
-          <s-nav-item name="qq">qq</s-nav-item>
-          <s-nav-sub name="phone">
-            <template v-slot:title>手机</template>
-            <s-nav-item name="cm">移动</s-nav-item>
-            <s-nav-item name="cu">联通</s-nav-item>
-            <s-nav-item name="cn">电信</s-nav-item>
-          </s-nav-sub>
-        </s-nav-sub>
-      </s-nav-sub>
-      <s-nav-item name="hire">招聘</s-nav-item>
-    </s-nav>
-  
-  
-    <s-nav :selected.sync="navSelected">
-      <s-nav-item name="home">首页</s-nav-item>
-      <s-nav-sub name="about">
-        <template v-slot:title>关于</template>
-        <s-nav-item name="culture">企业文化</s-nav-item>
-        <s-nav-item name="developers">开发团队</s-nav-item>
-        <s-nav-sub name="contact">
-          <template v-slot:title>联系方式</template>
-          <s-nav-item name="wechat">微信</s-nav-item>
-          <s-nav-item name="qq">qq</s-nav-item>
-          <s-nav-sub name="phone">
-            <template v-slot:title>手机</template>
-            <s-nav-item name="cm">移动</s-nav-item>
-            <s-nav-item name="cu">联通</s-nav-item>
-            <s-nav-item name="cn">电信</s-nav-item>
-          </s-nav-sub>
-        </s-nav-sub>
-      </s-nav-sub>
-      <s-nav-item name="hire">招聘</s-nav-item>
-    </s-nav>
+
+<!--  <div>{{ navSelected }}</div>-->
+<!--  <div class="nav">-->
+<!--    <s-nav :selected.sync="navSelected" vertical style="width: 200px">-->
+<!--      <s-nav-item name="home">首页</s-nav-item>-->
+<!--      <s-nav-sub name="about">-->
+<!--        <template v-slot:title>关于</template>-->
+<!--        <s-nav-item name="culture">企业文化</s-nav-item>-->
+<!--        <s-nav-item name="developers">开发团队</s-nav-item>-->
+<!--        <s-nav-sub name="contact">-->
+<!--          <template v-slot:title>联系方式</template>-->
+<!--          <s-nav-item name="wechat">微信</s-nav-item>-->
+<!--          <s-nav-item name="qq">qq</s-nav-item>-->
+<!--          <s-nav-sub name="phone">-->
+<!--            <template v-slot:title>手机</template>-->
+<!--            <s-nav-item name="cm">移动</s-nav-item>-->
+<!--            <s-nav-item name="cu">联通</s-nav-item>-->
+<!--            <s-nav-item name="cn">电信</s-nav-item>-->
+<!--          </s-nav-sub>-->
+<!--        </s-nav-sub>-->
+<!--      </s-nav-sub>-->
+<!--      <s-nav-item name="hire">招聘</s-nav-item>-->
+<!--    </s-nav>-->
+<!--  -->
+<!--  -->
+<!--    <s-nav :selected.sync="navSelected">-->
+<!--      <s-nav-item name="home">首页</s-nav-item>-->
+<!--      <s-nav-sub name="about">-->
+<!--        <template v-slot:title>关于</template>-->
+<!--        <s-nav-item name="culture">企业文化</s-nav-item>-->
+<!--        <s-nav-item name="developers">开发团队</s-nav-item>-->
+<!--        <s-nav-sub name="contact">-->
+<!--          <template v-slot:title>联系方式</template>-->
+<!--          <s-nav-item name="wechat">微信</s-nav-item>-->
+<!--          <s-nav-item name="qq">qq</s-nav-item>-->
+<!--          <s-nav-sub name="phone">-->
+<!--            <template v-slot:title>手机</template>-->
+<!--            <s-nav-item name="cm">移动</s-nav-item>-->
+<!--            <s-nav-item name="cu">联通</s-nav-item>-->
+<!--            <s-nav-item name="cn">电信</s-nav-item>-->
+<!--          </s-nav-sub>-->
+<!--        </s-nav-sub>-->
+<!--      </s-nav-sub>-->
+<!--      <s-nav-item name="hire">招聘</s-nav-item>-->
+<!--    </s-nav>-->
+<!--  </div>-->
+  <div class="pages" style="margin: 100px;">
+    <s-pager :total-pages="20" :current-page="3"></s-pager>
   </div>
 
 </div>

@@ -25,6 +25,7 @@ import SlideItem from "./slide/SlideItem"
 import Nav from './nav/Nav'
 import NavItem from "./nav/NavItem"
 import NavSub from "./nav/NavSub"
+import Pager from "./pager/Pager"
 import Vue from 'vue'
 import db from './db'
 
@@ -57,6 +58,7 @@ Vue.component('s-slide-item', SlideItem)
 Vue.component('s-nav', Nav)
 Vue.component('s-nav-item', NavItem)
 Vue.component('s-nav-sub', NavSub)
+Vue.component('s-pager', Pager)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
