@@ -203,6 +203,23 @@
 <!--      <s-slide-item name="3">3</s-slide-item>-->
 <!--    </s-slides>-->
 <!--  </div>-->
+  
+  <div class="carousel">
+    <s-carousel :selected="carouselSelected">
+      <s-carousel-item name="1">
+        <a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
+      </s-carousel-item>
+      <s-carousel-item name="2">
+        <a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
+      </s-carousel-item>
+      <s-carousel-item name="3">
+        <a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
+      </s-carousel-item>
+      <s-carousel-item name="4">
+        <a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
+      </s-carousel-item>
+    </s-carousel>
+  </div>
 
 <!--  <div>{{ navSelected }}</div>-->
 <!--  <div class="nav">-->
@@ -249,9 +266,10 @@
 <!--      <s-nav-item name="hire">招聘</s-nav-item>-->
 <!--    </s-nav>-->
 <!--  </div>-->
-  <div class="pages" style="margin: 100px;">
-    <s-pager :total-pages="10" :current-page.sync="currentPage" :hide-if-one-page="false"></s-pager>
-  </div>
+
+<!--  <div class="pages" style="margin: 100px;">-->
+<!--    <s-pager :total-pages="10" :current-page.sync="currentPage" :hide-if-one-page="false"></s-pager>-->
+<!--  </div>-->
 
 </div>
 </body>

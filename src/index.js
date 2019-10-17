@@ -26,6 +26,8 @@ import Nav from './nav/Nav'
 import NavItem from "./nav/NavItem"
 import NavSub from "./nav/NavSub"
 import Pager from "./pager/Pager"
+import Carousel from "./carousel/Carousel"
+import CarouselItem from "./carousel/CarouselItem"
 import Vue from 'vue'
 import db from './db'
 
@@ -59,6 +61,8 @@ Vue.component('s-nav', Nav)
 Vue.component('s-nav-item', NavItem)
 Vue.component('s-nav-sub', NavSub)
 Vue.component('s-pager', Pager)
+Vue.component('s-carousel', Carousel)
+Vue.component('s-carousel-item', CarouselItem)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
@@ -81,7 +85,8 @@ new Vue({
     cascaderSelected: [],
     itemSelected: "1",
     navSelected: "home",
-    currentPage: 1
+    currentPage: 1,
+    carouselSelected: '1'
   },
   created() {
     // ajax(0).then(res => {

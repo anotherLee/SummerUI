@@ -32,14 +32,14 @@
 
     computed: {
       /*
-       * 所有children组件的name
+       * 所有children组件接收到的name
        */
       names() {
         const children = this.$children
         return children ? children.map(vm => vm.name) : []
       },
       /*
-       * 被选中children的index
+       * 当前展示children的index
        */
       selectedIndex() {
         return this.names.indexOf(this.selected) || 0
@@ -74,7 +74,7 @@
           }
           // 相当于选中小点
           this.select(index)
-          index--
+          index++
           setTimeout(run, 3000)
         }
 
