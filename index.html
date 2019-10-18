@@ -223,24 +223,24 @@
   <!--    </s-slides>-->
   <!--  </div>-->
   
-  <div class="carousel">
-    <s-carousel :selected.sync="carouselSelected">
-      <template v-slot:default>
-        <s-carousel-item name="1">
-          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
-        </s-carousel-item>
-        <s-carousel-item name="2">
-          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a>
-        </s-carousel-item>
-        <s-carousel-item name="3">
-          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a>
-        </s-carousel-item>
-        <s-carousel-item name="4">
-          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a>
-        </s-carousel-item>
-      </template>
-    </s-carousel>
-  </div>
+<!--  <div class="carousel">-->
+<!--    <s-carousel :selected.sync="carouselSelected">-->
+<!--      <template v-slot:default>-->
+<!--        <s-carousel-item name="1">-->
+<!--          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>-->
+<!--        </s-carousel-item>-->
+<!--        <s-carousel-item name="2">-->
+<!--          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a>-->
+<!--        </s-carousel-item>-->
+<!--        <s-carousel-item name="3">-->
+<!--          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a>-->
+<!--        </s-carousel-item>-->
+<!--        <s-carousel-item name="4">-->
+<!--          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a>-->
+<!--        </s-carousel-item>-->
+<!--      </template>-->
+<!--    </s-carousel>-->
+<!--  </div>-->
   
   <!--  <div>{{ navSelected }}</div>-->
   <!--  <div class="nav">-->
@@ -292,6 +292,9 @@
   <!--    <s-pager :total-pages="10" :current-page.sync="currentPage" :hide-if-one-page="false"></s-pager>-->
   <!--  </div>-->
 
+  <div class="datepicker" style="padding: 100px;">
+    <s-datepicker></s-datepicker>
+  </div>
 </div>
 </body>
 </html>

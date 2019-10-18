@@ -28,6 +28,7 @@ import NavSub from "./nav/NavSub"
 import Pager from "./pager/Pager"
 import Carousel from "./carousel/Carousel"
 import CarouselItem from "./carousel/CarouselItem"
+import DatePicker from "./datepicker/DatePicker"
 import Vue from 'vue'
 import db from './db'
 
@@ -63,6 +64,7 @@ Vue.component('s-nav-sub', NavSub)
 Vue.component('s-pager', Pager)
 Vue.component('s-carousel', Carousel)
 Vue.component('s-carousel-item', CarouselItem)
+Vue.component('s-datepicker', DatePicker)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
