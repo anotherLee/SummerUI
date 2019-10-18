@@ -57,34 +57,53 @@
       padding: 200px;
     }
   </style>
+  
+  <style>
+    .carousel {
+      height: 200px; width: 400px;
+    }
+    
+    .imgContainer {
+      display: flex; justify-content: center; align-items: center;
+      width: 100%; height: 100%;
+      color: inherit; text-decoration: none;
+      background-color: lightblue;
+    }
+    
+    .imgContainer > img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      vertical-align: top;
+    }
+  </style>
 </head>
 <body>
 <div id="app">
-<!--    <s-button icon="setting">我爱JS</s-button>-->
-<!--    <s-button icon="right" icon-position="right" :loading="true">点击</s-button>-->
-<!--    <s-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">我爱JS</s-button>-->
-<!--    <s-button>我爱你</s-button>-->
-<!--    <s-button-group>-->
-<!--      <s-button icon="left">向左</s-button>-->
-<!--      <s-button icon="setting">中间</s-button>-->
-<!--      <s-button icon="right">向右</s-button>-->
-<!--    </s-button-group>-->
-<!--    <s-button>确定</s-button>-->
-<!--    <s-button icon="setting"></s-button>-->
-<!--    <div class="test-input">-->
-<!--      <s-input></s-input>-->
-<!--      <s-input value="张三"></s-input>-->
-<!--      <s-input value="张三" disabled></s-input>-->
-<!--      <s-input value="张三" readonly></s-input>-->
-<!--      <s-input value="张三" error="这是错误信息"></s-input>-->
-<!--      <div class="box">-->
-<!--        <s-input @change="inputChange"></s-input>-->
-<!--      </div>-->
-<!--      <div class="box">-->
-<!--        <s-input v-model='inputValue'></s-input>-->
-<!--        {{ inputValue }}-->
-<!--      </div>-->
-<!--    </div>-->
+  <!--    <s-button icon="setting">我爱JS</s-button>-->
+  <!--    <s-button icon="right" icon-position="right" :loading="true">点击</s-button>-->
+  <!--    <s-button icon="setting" icon-position="right" :loading="loading1" @click="loading1 = !loading1">我爱JS</s-button>-->
+  <!--    <s-button>我爱你</s-button>-->
+  <!--    <s-button-group>-->
+  <!--      <s-button icon="left">向左</s-button>-->
+  <!--      <s-button icon="setting">中间</s-button>-->
+  <!--      <s-button icon="right">向右</s-button>-->
+  <!--    </s-button-group>-->
+  <!--    <s-button>确定</s-button>-->
+  <!--    <s-button icon="setting"></s-button>-->
+  <!--    <div class="test-input">-->
+  <!--      <s-input></s-input>-->
+  <!--      <s-input value="张三"></s-input>-->
+  <!--      <s-input value="张三" disabled></s-input>-->
+  <!--      <s-input value="张三" readonly></s-input>-->
+  <!--      <s-input value="张三" error="这是错误信息"></s-input>-->
+  <!--      <div class="box">-->
+  <!--        <s-input @change="inputChange"></s-input>-->
+  <!--      </div>-->
+  <!--      <div class="box">-->
+  <!--        <s-input v-model='inputValue'></s-input>-->
+  <!--        {{ inputValue }}-->
+  <!--      </div>-->
+  <!--    </div>-->
   
   <!--  <div class="test-row">-->
   <!--    <s-row>-->
@@ -177,99 +196,101 @@
   <!--    </div>-->
   <!--  </div>-->
   
-<!--  <div class="collapse" style="padding: 10px">-->
-<!--    <s-collapse :selected.sync="selectedItem" single>-->
-<!--      <s-collapse-item title="标题1" name="1">内容1</s-collapse-item>-->
-<!--      <s-collapse-item title="标题2" name="2">内容2</s-collapse-item>-->
-<!--      <s-collapse-item title="标题3" name="3">内容3</s-collapse-item>-->
-<!--    </s-collapse>-->
-<!--  </div>-->
-
-<!--  <div>{{ cascaderSelected }}</div>-->
-<!--  <div class="cascader" style="padding: 10px">-->
-<!--    <s-cascader-->
-<!--      :source.sync="source"-->
-<!--      popover-height="200px"-->
-<!--      :selected="cascaderSelected"-->
-<!--      :load-data="loadData"-->
-<!--      @item-selected="getNewSelected"-->
-<!--    ></s-cascader>-->
-<!--  </div>-->
-
-<!--  <div class="slides" style="width: 100%; height: 200px;">-->
-<!--    <s-slides :selected.sync="itemSelected">-->
-<!--      <s-slide-item name="1">1</s-slide-item>-->
-<!--      <s-slide-item name="2">2</s-slide-item>-->
-<!--      <s-slide-item name="3">3</s-slide-item>-->
-<!--    </s-slides>-->
-<!--  </div>-->
+  <!--  <div class="collapse" style="padding: 10px">-->
+  <!--    <s-collapse :selected.sync="selectedItem" single>-->
+  <!--      <s-collapse-item title="标题1" name="1">内容1</s-collapse-item>-->
+  <!--      <s-collapse-item title="标题2" name="2">内容2</s-collapse-item>-->
+  <!--      <s-collapse-item title="标题3" name="3">内容3</s-collapse-item>-->
+  <!--    </s-collapse>-->
+  <!--  </div>-->
+  
+  <!--  <div>{{ cascaderSelected }}</div>-->
+  <!--  <div class="cascader" style="padding: 10px">-->
+  <!--    <s-cascader-->
+  <!--      :source.sync="source"-->
+  <!--      popover-height="200px"-->
+  <!--      :selected="cascaderSelected"-->
+  <!--      :load-data="loadData"-->
+  <!--      @item-selected="getNewSelected"-->
+  <!--    ></s-cascader>-->
+  <!--  </div>-->
+  
+  <!--  <div class="slides" style="width: 100%; height: 200px;">-->
+  <!--    <s-slides :selected.sync="itemSelected">-->
+  <!--      <s-slide-item name="1">1</s-slide-item>-->
+  <!--      <s-slide-item name="2">2</s-slide-item>-->
+  <!--      <s-slide-item name="3">3</s-slide-item>-->
+  <!--    </s-slides>-->
+  <!--  </div>-->
   
   <div class="carousel">
-    <s-carousel :selected="carouselSelected">
-      <s-carousel-item name="1">
-        <a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
-      </s-carousel-item>
-      <s-carousel-item name="2">
-        <a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
-      </s-carousel-item>
-      <s-carousel-item name="3">
-        <a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
-      </s-carousel-item>
-      <s-carousel-item name="4">
-        <a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
-      </s-carousel-item>
+    <s-carousel :selected.sync="carouselSelected">
+      <template v-slot:default>
+        <s-carousel-item name="1">
+          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
+        </s-carousel-item>
+        <s-carousel-item name="2">
+          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a>
+        </s-carousel-item>
+        <s-carousel-item name="3">
+          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a>
+        </s-carousel-item>
+        <s-carousel-item name="4">
+          <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a>
+        </s-carousel-item>
+      </template>
     </s-carousel>
   </div>
-
-<!--  <div>{{ navSelected }}</div>-->
-<!--  <div class="nav">-->
-<!--    <s-nav :selected.sync="navSelected" vertical style="width: 200px">-->
-<!--      <s-nav-item name="home">首页</s-nav-item>-->
-<!--      <s-nav-sub name="about">-->
-<!--        <template v-slot:title>关于</template>-->
-<!--        <s-nav-item name="culture">企业文化</s-nav-item>-->
-<!--        <s-nav-item name="developers">开发团队</s-nav-item>-->
-<!--        <s-nav-sub name="contact">-->
-<!--          <template v-slot:title>联系方式</template>-->
-<!--          <s-nav-item name="wechat">微信</s-nav-item>-->
-<!--          <s-nav-item name="qq">qq</s-nav-item>-->
-<!--          <s-nav-sub name="phone">-->
-<!--            <template v-slot:title>手机</template>-->
-<!--            <s-nav-item name="cm">移动</s-nav-item>-->
-<!--            <s-nav-item name="cu">联通</s-nav-item>-->
-<!--            <s-nav-item name="cn">电信</s-nav-item>-->
-<!--          </s-nav-sub>-->
-<!--        </s-nav-sub>-->
-<!--      </s-nav-sub>-->
-<!--      <s-nav-item name="hire">招聘</s-nav-item>-->
-<!--    </s-nav>-->
-<!--  -->
-<!--  -->
-<!--    <s-nav :selected.sync="navSelected">-->
-<!--      <s-nav-item name="home">首页</s-nav-item>-->
-<!--      <s-nav-sub name="about">-->
-<!--        <template v-slot:title>关于</template>-->
-<!--        <s-nav-item name="culture">企业文化</s-nav-item>-->
-<!--        <s-nav-item name="developers">开发团队</s-nav-item>-->
-<!--        <s-nav-sub name="contact">-->
-<!--          <template v-slot:title>联系方式</template>-->
-<!--          <s-nav-item name="wechat">微信</s-nav-item>-->
-<!--          <s-nav-item name="qq">qq</s-nav-item>-->
-<!--          <s-nav-sub name="phone">-->
-<!--            <template v-slot:title>手机</template>-->
-<!--            <s-nav-item name="cm">移动</s-nav-item>-->
-<!--            <s-nav-item name="cu">联通</s-nav-item>-->
-<!--            <s-nav-item name="cn">电信</s-nav-item>-->
-<!--          </s-nav-sub>-->
-<!--        </s-nav-sub>-->
-<!--      </s-nav-sub>-->
-<!--      <s-nav-item name="hire">招聘</s-nav-item>-->
-<!--    </s-nav>-->
-<!--  </div>-->
-
-<!--  <div class="pages" style="margin: 100px;">-->
-<!--    <s-pager :total-pages="10" :current-page.sync="currentPage" :hide-if-one-page="false"></s-pager>-->
-<!--  </div>-->
+  
+  <!--  <div>{{ navSelected }}</div>-->
+  <!--  <div class="nav">-->
+  <!--    <s-nav :selected.sync="navSelected" vertical style="width: 200px">-->
+  <!--      <s-nav-item name="home">首页</s-nav-item>-->
+  <!--      <s-nav-sub name="about">-->
+  <!--        <template v-slot:title>关于</template>-->
+  <!--        <s-nav-item name="culture">企业文化</s-nav-item>-->
+  <!--        <s-nav-item name="developers">开发团队</s-nav-item>-->
+  <!--        <s-nav-sub name="contact">-->
+  <!--          <template v-slot:title>联系方式</template>-->
+  <!--          <s-nav-item name="wechat">微信</s-nav-item>-->
+  <!--          <s-nav-item name="qq">qq</s-nav-item>-->
+  <!--          <s-nav-sub name="phone">-->
+  <!--            <template v-slot:title>手机</template>-->
+  <!--            <s-nav-item name="cm">移动</s-nav-item>-->
+  <!--            <s-nav-item name="cu">联通</s-nav-item>-->
+  <!--            <s-nav-item name="cn">电信</s-nav-item>-->
+  <!--          </s-nav-sub>-->
+  <!--        </s-nav-sub>-->
+  <!--      </s-nav-sub>-->
+  <!--      <s-nav-item name="hire">招聘</s-nav-item>-->
+  <!--    </s-nav>-->
+  <!--  -->
+  <!--  -->
+  <!--    <s-nav :selected.sync="navSelected">-->
+  <!--      <s-nav-item name="home">首页</s-nav-item>-->
+  <!--      <s-nav-sub name="about">-->
+  <!--        <template v-slot:title>关于</template>-->
+  <!--        <s-nav-item name="culture">企业文化</s-nav-item>-->
+  <!--        <s-nav-item name="developers">开发团队</s-nav-item>-->
+  <!--        <s-nav-sub name="contact">-->
+  <!--          <template v-slot:title>联系方式</template>-->
+  <!--          <s-nav-item name="wechat">微信</s-nav-item>-->
+  <!--          <s-nav-item name="qq">qq</s-nav-item>-->
+  <!--          <s-nav-sub name="phone">-->
+  <!--            <template v-slot:title>手机</template>-->
+  <!--            <s-nav-item name="cm">移动</s-nav-item>-->
+  <!--            <s-nav-item name="cu">联通</s-nav-item>-->
+  <!--            <s-nav-item name="cn">电信</s-nav-item>-->
+  <!--          </s-nav-sub>-->
+  <!--        </s-nav-sub>-->
+  <!--      </s-nav-sub>-->
+  <!--      <s-nav-item name="hire">招聘</s-nav-item>-->
+  <!--    </s-nav>-->
+  <!--  </div>-->
+  
+  <!--  <div class="pages" style="margin: 100px;">-->
+  <!--    <s-pager :total-pages="10" :current-page.sync="currentPage" :hide-if-one-page="false"></s-pager>-->
+  <!--  </div>-->
 
 </div>
 </body>
