@@ -1,35 +1,37 @@
 <template>
   <div class="s-date-picker" v-click-outside="closePop" style="border: 1px solid red">
     <Input type="text" @focus="onFocus" :value="dateValue" />
-    <div class="s-date-picker-pop" v-if="popVisible">
+    <div class="s-date-picker-pop" v-if="popVisible" @selectstart.prevent ref="pop">
       <div class="s-date-picker-nav">
-        <span class="doubleLeft"><Icon name="moveLeft"></Icon></span>
-        <span class="innerIcon singleLeft"><Icon name="back"></Icon></span>
-        <span class="yearAndMonth">
-          <span @click="onClickYear">{{ value.getFullYear() }}年</span>
-          <span @click="onClickMonth">{{ value.getMonth() + 1 }}月</span>
+        <span class="doubleLeft" @click="onClickPrevYear"><Icon name="moveLeft"></Icon></span>
+        <span class="innerIcon singleLeft" @click="onClickPrevMonth"><Icon name="back"></Icon></span>
+        <span class="yearAndMonth" @click="onClickMonth">
+          <span>{{ display.year }}年</span>
+          <span>{{ display.month + 1 }}月</span>
         </span>
-        <span class="innerIcon singleRight"><Icon name="next"></Icon></span>
-        <span class="doubleRight"><Icon name="moveRight"></Icon></span>
+        <span class="innerIcon singleRight" @click="onClickNextMonth"><Icon name="next"></Icon></span>
+        <span class="doubleRight" @click="onClickNextYear"><Icon name="moveRight"></Icon></span>
       </div>
       
-      <div v-if="mode === 'years'" class="s-date-picker-content">年</div>
-      <div v-else-if="mode === 'months'" class="s-date-picker-content">月</div>
-      <div v-else class="s-date-picker-content days">
-        <div class="s-date-picker-content-header">
-          <span v-for="i in 7" :key="i">{{ weekdays[i] }}</span>
-        </div>
-        <div v-for="i in 6" :key="i" class="s-date-picker-content-row">
+      <div class="s-date-picker-content">
+        <template v-if="mode === 'months'">
+          选择年和月
+        </template>
+        <template v-if="mode === 'days'">
+          <div class="s-date-picker-content-header">
+            <span v-for="i in 7" :key="i">{{ weekdays[i] }}</span>
+          </div>
+          <div v-for="i in 6" :key="i" class="s-date-picker-content-row">
           <span v-for="j in 7" :key="j"
-            class="s-date-picker-content-cell"
-            :class="{ notCurrent: days[(i-1)* 7 + j - 1].getMonth() !== value.getMonth()}"
-            @click="onClickCell(days[(i-1)* 7 + j - 1])">{{ days[(i-1)* 7 + j - 1].getDate() }}</span>
-        </div>
-        <div>
-          <button>清除</button>
-        </div>
+                class="s-date-picker-content-cell"
+                :class="{ notCurrent: days[(i-1)* 7 + j - 1].getMonth() !== display.month}"
+                @click="onClickCell(days[(i-1)* 7 + j - 1])">{{ days[(i-1)* 7 + j - 1].getDate() }}</span>
+          </div>
+          <div>
+            <button>清除</button>
+          </div>
+        </template>
       </div>
-      
       <div class="s-date-picker-actions"></div>
     </div>
   </div>
@@ -50,6 +52,7 @@
       }
     },
     data() {
+      let [year, month] = helper.getYearMonthDate(this.value)
       return {
         popVisible: false,
         mode: 'days', // months years
@@ -62,11 +65,12 @@
           6: '六',
           7: '日',
         },
+        display: { year, month },
       }
     },
     computed: {
       days() {
-        const d = this.value
+        const d = new Date(this.display.year, this.display.month, 1)
         let first = helper.firstDayOfMonth(d)
 
         let arr = []
@@ -86,17 +90,33 @@
         return `${year}-${this.padding(month + 1)}-${day}`
       }
     },
+    watch: {
+      value() {
+        this.display = {
+          year: this.value.getFullYear(),
+          month: this.value.getMonth()
+        }
+      }
+    },
     mounted() {
     },
     methods: {
       onFocus() {
         this.popVisible = true
-      },
-      onClickYear() {
-        this.mode = 'years'
+        this.$nextTick(() => {
+          const { pop } = this.$refs
+          const { width, height } = pop.getBoundingClientRect()
+          console.log(width, pop)
+          pop.style.width = `${width}px`
+          pop.style.height = `${height}px`
+        })
       },
       onClickMonth() {
-        this.mode = 'months'
+        if (this.mode !== 'months') {
+          this.mode = 'months'
+        } else {
+          this.mode = 'days'
+        }
       },
       closePop() {
         this.popVisible = false
@@ -106,6 +126,26 @@
       },
       padding(n) {
         return n < 10 ? `0${n}` : `${n}`
+      },
+      onClickPrevMonth() {
+        this.changeTime(-1)
+      },
+      onClickNextMonth() {
+        this.changeTime(1)
+      },
+      onClickPrevYear() {
+        this.changeTime(-12)
+      },
+      onClickNextYear() {
+        this.changeTime(12)
+      },
+      changeTime(n) {
+        let { year, month } = this.display
+        let newDate = helper.addMonth(new Date(year, month), n)
+        this.display = {
+          year: newDate.getFullYear(),
+          month: newDate.getMonth()
+        }
       }
     },
     directives: { clickOutside },
@@ -155,9 +195,10 @@
         }
         
         .yearAndMonth {
+          display: inline-block;
           margin: 0 auto;
+          text-align: center;
           >span{
-            margin: 0 8px;
             font-weight: bold;
             cursor: pointer;
           }
