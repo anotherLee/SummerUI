@@ -88,7 +88,8 @@ new Vue({
     itemSelected: "1",
     navSelected: "home",
     currentPage: 1,
-    carouselSelected: '1'
+    carouselSelected: '1',
+    dateValue: new Date()
   },
   created() {
     // ajax(0).then(res => {
