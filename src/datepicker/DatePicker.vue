@@ -180,6 +180,7 @@
       },
       onClickCell(date) {
         this.$emit('update:value', date)
+        this.closePop()
       },
       padding(n) {
         return n < 10 ? `0${n}` : `${n}`
@@ -275,7 +276,6 @@
   .s-date-picker {
     position: relative;
     display: inline-flex;
-    border: 1px solid red;
     
     .s-date-picker-pop {
       position: absolute; top: 100%; margin-top: 2px;
