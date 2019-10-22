@@ -29,6 +29,7 @@ import Pager from "./pager/Pager"
 import Carousel from "./carousel/Carousel"
 import CarouselItem from "./carousel/CarouselItem"
 import DatePicker from "./datepicker/DatePicker"
+import Uploader from "./uploader/Uploader"
 import Vue from 'vue'
 import db from './db'
 
@@ -65,6 +66,7 @@ Vue.component('s-pager', Pager)
 Vue.component('s-carousel', Carousel)
 Vue.component('s-carousel-item', CarouselItem)
 Vue.component('s-datepicker', DatePicker)
+Vue.component('s-uploader', Uploader)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
@@ -89,7 +91,8 @@ new Vue({
     navSelected: "home",
     currentPage: 1,
     carouselSelected: '1',
-    dateValue: new Date()
+    dateValue: new Date(),
+    fileList: []
   },
   created() {
     // ajax(0).then(res => {
@@ -125,6 +128,10 @@ new Vue({
     //     // console.log(result)
     //     callback(result)
     //   })
-    // }
+    // },
+    parseResponse(response) {
+      let obj = JSON.parse(response)
+      return `http://127.0.0.1:3000/preview/${obj.id}`
+    }
   }
 })
