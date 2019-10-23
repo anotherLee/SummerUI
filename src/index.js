@@ -132,6 +132,9 @@ new Vue({
     parseResponse(response) {
       let obj = JSON.parse(response)
       return `http://127.0.0.1:3000/preview/${obj.id}`
+    },
+    onError(error) {
+      console.log(error)
     }
   }
 })

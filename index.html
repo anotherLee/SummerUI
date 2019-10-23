@@ -296,8 +296,15 @@
   <!--    <s-datepicker :value.sync="dateValue"></s-datepicker>-->
   <!--  </div>-->
   <div class="upload">
-    <s-uploader accept="image/*" action="http://127.0.0.1:3000/upload" name="file" method="post" :parse-response="parseResponse" :file-list.sync="fileList">
-      <button>上传</button>
+    <s-uploader
+            accept="image/*"
+            action="http://127.0.0.1:3000/upload"
+            name="files" method="post"
+            :parse-response="parseResponse"
+            :file-list.sync="fileList"
+            :size-limit="1*1024*1024"
+            @error="onError">
+      <s-button icon="upload">上传</s-button>
       <template v-slot:tips>
         <div>只能上传 300kb 以内的png、jpg、jpeg文件</div>
       </template>
