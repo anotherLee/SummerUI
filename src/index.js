@@ -30,6 +30,7 @@ import Carousel from "./carousel/Carousel"
 import CarouselItem from "./carousel/CarouselItem"
 import DatePicker from "./datepicker/DatePicker"
 import Uploader from "./uploader/Uploader"
+import Sticky from "./sticky/Sticky"
 import Vue from 'vue'
 import db from './db'
 
@@ -67,6 +68,7 @@ Vue.component('s-carousel', Carousel)
 Vue.component('s-carousel-item', CarouselItem)
 Vue.component('s-datepicker', DatePicker)
 Vue.component('s-uploader', Uploader)
+Vue.component('s-sticky', Sticky)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
