@@ -111,6 +111,25 @@ new Vue({
     //   console.log(this.itemSelected)
     // }, 3000)
   },
+  mounted() {
+    let translateY = 0
+    const { parent, child } = this.$refs
+    parent.addEventListener('wheel', e => {
+      if (e.deltaY > 0) {
+        console.log('从下向上')
+        translateY -= 10
+        child.style.transform = `translateY(${translateY}px)`
+        child.style.transition = `transform 1s linear`
+      } else if(e.deltaY < 0) {
+        translateY += 10
+        console.log('从上向下')
+        child.style.transform = `translateY(${translateY}px)`
+        child.style.transition = `transform 1s linear`
+      } else {
+        console.log('纵向没动')
+      }
+    })
+  },
   methods: {
     // inputChange(e) {
     //   console.log(1)
