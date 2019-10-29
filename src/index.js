@@ -114,20 +114,32 @@ new Vue({
   mounted() {
     let translateY = 0
     const { parent, child } = this.$refs
+    child.style.transition = `transform 0.05s ease`
+    let { height: childHeight } = child.getBoundingClientRect()
+    let { height: parentHeight } = parent.getBoundingClientRect()
+    let { borderTopWidth, borderBottomWidth, paddingTop, paddingBottom } = window.getComputedStyle(parent)
+    borderTopWidth = parseInt(borderTopWidth)
+    borderBottomWidth = parseInt(borderBottomWidth)
+    paddingTop = parseInt(paddingTop)
+    paddingBottom = parseInt(paddingBottom)
+    let maxHeight = childHeight - (parentHeight - borderTopWidth - borderBottomWidth - paddingBottom - paddingTop)
+
     parent.addEventListener('wheel', e => {
-      if (e.deltaY > 0) {
-        console.log('从下向上')
-        translateY -= 10
-        child.style.transform = `translateY(${translateY}px)`
-        child.style.transition = `transform 1s linear`
-      } else if(e.deltaY < 0) {
-        translateY += 10
-        console.log('从上向下')
-        child.style.transform = `translateY(${translateY}px)`
-        child.style.transition = `transform 1s linear`
+      if (e.deltaY > 25) {
+        translateY -= 25 * 3
+      } else if (e.deltaY < -25) {
+        translateY -= -25 * 3
       } else {
-        console.log('纵向没动')
+        translateY -= e.deltaY * 3
       }
+
+      if (translateY > 0) {
+        translateY = 0
+      } else if (translateY < -maxHeight) {
+        translateY = -maxHeight
+      }
+      console.log(translateY)
+      child.style.transform = `translateY(${translateY}px)`
     })
   },
   methods: {
