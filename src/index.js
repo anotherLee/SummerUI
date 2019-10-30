@@ -31,6 +31,7 @@ import CarouselItem from "./carousel/CarouselItem"
 import DatePicker from "./datepicker/DatePicker"
 import Uploader from "./uploader/Uploader"
 import Sticky from "./sticky/Sticky"
+import Scroll from "./scroll/Scroll"
 import Vue from 'vue'
 import db from './db'
 
@@ -69,6 +70,7 @@ Vue.component('s-carousel-item', CarouselItem)
 Vue.component('s-datepicker', DatePicker)
 Vue.component('s-uploader', Uploader)
 Vue.component('s-sticky', Sticky)
+Vue.component('s-scroll', Scroll)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
@@ -112,34 +114,39 @@ new Vue({
     // }, 3000)
   },
   mounted() {
-    let translateY = 0
-    const { parent, child } = this.$refs
-    child.style.transition = `transform 0.05s ease`
-    let { height: childHeight } = child.getBoundingClientRect()
-    let { height: parentHeight } = parent.getBoundingClientRect()
-    let { borderTopWidth, borderBottomWidth, paddingTop, paddingBottom } = window.getComputedStyle(parent)
-    borderTopWidth = parseInt(borderTopWidth)
-    borderBottomWidth = parseInt(borderBottomWidth)
-    paddingTop = parseInt(paddingTop)
-    paddingBottom = parseInt(paddingBottom)
-    let maxHeight = childHeight - (parentHeight - borderTopWidth - borderBottomWidth - paddingBottom - paddingTop)
+    let test = document.querySelector('.testDrag')
+    let startPosition, endPosition, isMoving
+    let top, left
 
-    parent.addEventListener('wheel', e => {
-      if (e.deltaY > 25) {
-        translateY -= 25 * 3
-      } else if (e.deltaY < -25) {
-        translateY -= -25 * 3
-      } else {
-        translateY -= e.deltaY * 3
+    test.addEventListener('selectstart', e => e.preventDefault())
+
+    test.addEventListener('mousedown', e => {
+      let { clientX, clientY } = e
+      startPosition = {
+        x: clientX,
+        y: clientY
       }
 
-      if (translateY > 0) {
-        translateY = 0
-      } else if (translateY < -maxHeight) {
-        translateY = -maxHeight
+      top = parseInt(window.getComputedStyle(test).top)
+      left = parseInt(window.getComputedStyle(test).left)
+
+      isMoving = true
+    })
+
+    document.addEventListener('mousemove', e => {
+      if (!isMoving) return
+      const { clientX, clientY } = e
+      endPosition = {
+        x: clientX,
+        y: clientY
       }
-      console.log(translateY)
-      child.style.transform = `translateY(${translateY}px)`
+
+      test.style.top = top + (endPosition.y - startPosition.y) + 'px'
+      test.style.left = left + (endPosition.x - startPosition.x) + 'px'
+    })
+
+    document.addEventListener('mouseup', e => {
+      isMoving = false
     })
   },
   methods: {
