@@ -166,6 +166,7 @@
     beforeDestroy() {
       document.removeEventListener('mousemove', this.onMouseDownBar)
       document.removeEventListener('mouseup', this.onMouseUpBar)
+      
     }
   }
 </script>
