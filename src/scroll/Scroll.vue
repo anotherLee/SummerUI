@@ -24,7 +24,9 @@
     .s-scroll-track {
       position: absolute; right: 0; top: 0;
       height: 100%; width: 14px;
-      background-color: #fafafa; border-left: 1px solid #e8e7e8;
+      background-color: #fafafa;
+      border-left: 1px solid #e8e7e8;
+      border-right: 1px solid transparent;
       
       .s-scroll-bar {
         position: absolute; top: 0; left: 50%; margin-left: -4px;
@@ -75,6 +77,8 @@
 
       this.updateScrollBar()
       this.listenToDocument()
+      this.listenToRemoteResources()
+      this.listenToDomChange()
     },
     methods: {
       listenToDocument() {
@@ -104,7 +108,7 @@
         this.limitContentY()
         this.updateScrollBar()
       },
-      
+
       updateScrollBar() {
         const { bar } = this.$refs
         this.barHeight = this.parentInnerHeight * this.parentInnerHeight / this.childHeight
@@ -144,7 +148,7 @@
           x: clientX,
           y: clientY
         }
-        
+
         this.barMoveY = this.barMoveY + (this.endPosition.y - this.startPosition.y)
         if (this.barMoveY < 0) {
           this.barMoveY = 0
@@ -159,12 +163,40 @@
 
       onMouseUpBar() {
         this.isMoving = false
+      },
+      
+      updateChildHeight() {
+        this.childHeight = this.$refs.child.getBoundingClientRect().height
+      },
+
+      listenToRemoteResources() {
+        const { parent } = this.$refs
+        let nodes = parent.querySelectorAll('img, video, audio')
+        Array.from(nodes).map(node => {
+          if (node.hasAttribute('data-listened')) return
+          node.setAttribute('data-listened', 'yes')
+          node.addEventListener('load', e => {
+            this.updateChildHeight()
+            this.updateScrollBar()
+          })
+        })
+      },
+      
+      listenToDomChange() {
+        const child = this.$refs.child
+        const config = { attributes: true, childList: true, subtree: true }
+        const callback = () => {
+          this.updateChildHeight()
+          this.updateScrollBar()
+          this.listenToRemoteResources()
+        }
+        const observer = new MutationObserver(callback)
+        observer.observe(child, config)
       }
     },
     beforeDestroy() {
       document.removeEventListener('mousemove', this.onMouseDownBar)
       document.removeEventListener('mouseup', this.onMouseUpBar)
-      
     }
   }
 </script>

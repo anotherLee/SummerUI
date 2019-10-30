@@ -96,7 +96,8 @@ new Vue({
     currentPage: 1,
     carouselSelected: '1',
     dateValue: new Date(),
-    fileList: []
+    fileList: [],
+    divVisible: false
   },
   created() {
     // ajax(0).then(res => {
@@ -114,6 +115,10 @@ new Vue({
     // }, 3000)
   },
   mounted() {
+
+    setTimeout(() =>  {
+      this.divVisible = true
+    }, 5000)
     let test = document.querySelector('.testDrag')
     let startPosition, endPosition, isMoving
     let top, left
