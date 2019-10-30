@@ -62,6 +62,14 @@
         barMoveY: 0, // 滚动条移动的距离
       }
     },
+    computed: {
+      /*
+       * bar 能移动的最大距离
+       */
+      barMaxY() {
+        return this.parentInnerHeight - this.barHeight
+      }
+    },
     mounted() {
       const { parent, child } = this.$refs
       this.childHeight = child.getBoundingClientRect().height
@@ -140,11 +148,10 @@
         }
         
         this.barMoveY = this.barMoveY + (this.endPosition.y - this.startPosition.y)
-        const maxY = this.parentInnerHeight - this.barHeight
         if (this.barMoveY < 0) {
           this.barMoveY = 0
-        } else if (this.barMoveY > maxY) {
-          this.barMoveY = maxY
+        } else if (this.barMoveY > this.barMaxY) {
+          this.barMoveY = this.barMaxY
         }
         bar.style.transform = `translateY(${this.barMoveY}px)`
         this.contentY = -(this.barMoveY / this.parentInnerHeight * this.childHeight)
