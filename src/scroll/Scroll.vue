@@ -15,11 +15,9 @@
   .s-scroll-wrapper {
     position: relative;
     padding-right: 14px;
-    border: 5px solid red;
     overflow: hidden;
     
     .s-scroll {
-      border: 5px solid green;
       transition: transform 0.05s ease;
     }
     
