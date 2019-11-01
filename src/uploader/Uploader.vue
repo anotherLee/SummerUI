@@ -62,27 +62,6 @@
         return input
       },
       
-      /*
-       * 使用 FormData 上传文件
-       */
-      uploadFile(rawFile) {
-        let bool = this.beforeUploadFile(rawFile)
-        if (!bool) return
-        let formData = new FormData()
-        formData.append(this.name, rawFile)
-
-        this.doUploadFile(formData, (response) => {
-          console.log('上传成功', response)
-          this.afterUploadFile(url)
-        }, (xhr) => {
-          let error = ''
-          if (xhr.status === 0) {
-            error = 'network error'
-          }
-          this.uploadError(error)
-        })
-      },
-      
       uploadFiles(files) {
         for (let i = 0; i < files.length; ++i) {
           const rawFile = files[i]
