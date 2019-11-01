@@ -1,5 +1,5 @@
 <template>
-  <div class="s-carousel">
+  <div class="s-carousel" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <div class="s-pages">
       <slot></slot>
     </div>
@@ -25,13 +25,21 @@
     props: {
       selected: {
         type: String
+      },
+      autoPlay: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
       return {
         children: [],
-        direction: 1,
+        direction: 1, // 转变从左向右
         lastPageIndex: 0, // 上一页索引
+        transitionEnd: true, // 过度是否结束
+        timer1: undefined,
+        timer2: undefined,
+        autoPlayTimer: undefined
       }
     },
     computed: {
@@ -51,13 +59,15 @@
     },
     watch: {
       selected() {
-        console.log('setPages')
-        this.setPages()
+        this.setPagesPage()
       }
     },
     mounted() {
       this.children = this.$children.filter(vm => vm.name !== 'back' && vm.name !== 'next')
       this.onFinish()
+      if (this.autoPlay) {
+        this.autoPlayPage()
+      }
     },
     methods: {
       clickPrev() {
@@ -78,14 +88,26 @@
         this.$emit('update:selected', this.names[i])
       },
 
-      setPages() {
+      setPagesPage() {
         if (this.lastPageIndex === this.index) return
-        this.slide(this.children[this.lastPageIndex].$el, this.children[this.index].$el, this.direction, this.onFinish)
+        if (this.transitionEnd) {
+          this.slide(this.children[this.lastPageIndex].$el, this.children[this.index].$el, this.direction, this.onFinish)
+        } else {
+          window.cancelAnimationFrame(this.timer1)
+          window.cancelAnimationFrame(this.timer2)
+          this.onFinish()
+        }
       },
-      
+
+      /*
+       * 最终状态，即让 selected 的那一项放在最上面
+       */
       onFinish() {
+        this.transitionEnd = true
+        console.log(this.selected, this.index)
         this.children.forEach((vm, n) => {
           vm.$el.style.zIndex = '1'
+          vm.$el.style.transform = 'translateX(0)'
           if (n === this.index) {
             vm.$el.style.zIndex = '10'
           }
@@ -93,6 +115,7 @@
       },
 
       slide(fromNode, toNode, direction, onFinish) {
+        this.transitionEnd = false
         let start1 = 0, end1 = direction === 1 ? -100 : 100
         let start2 = direction === 1 ? 100 : -100, end2 = 0
         let step = 4
@@ -100,12 +123,12 @@
         toNode.style.zIndex = '9'
         toNode.style.transform = direction === 1 ? 'translateX(100%)' : 'translateX(-100%)'
 
-        function fromNodeAnimation() {
+        const fromNodeAnimation = () => {
           if (direction === 1) {
             if (start1 > end1) {
               start1 -= step
               fromNode.style.transform = `translateX(${start1}%)`
-              requestAnimationFrame(fromNodeAnimation)
+              this.timer1 = requestAnimationFrame(fromNodeAnimation)
             } else {
               fromNode.style.transform = 'translateX(-100%)'
             }
@@ -113,7 +136,7 @@
             if (start1 < end1) {
               start1 += step
               fromNode.style.transform = `translateX(${start1}%)`
-              requestAnimationFrame(fromNodeAnimation)
+              this.timer1 = requestAnimationFrame(fromNodeAnimation)
             } else {
               fromNode.style.transform = 'translateX(100%)'
             }
@@ -121,12 +144,12 @@
 
         }
 
-        function toNodeAnimation() {
+        const toNodeAnimation = () => {
           if (direction === 1) {
             if (start2 > end2) {
               start2 -= step
               toNode.style.transform = `translateX(${start2}%)`
-              requestAnimationFrame(toNodeAnimation)
+              this.timer2 = requestAnimationFrame(toNodeAnimation)
             } else {
               toNode.style.transform = 'translateX(0)'
               onFinish()
@@ -135,7 +158,7 @@
             if (start2 < end2) {
               start2 += step
               toNode.style.transform = `translateX(${start2}%)`
-              requestAnimationFrame(toNodeAnimation)
+              this.timer2 = requestAnimationFrame(toNodeAnimation)
             } else {
               toNode.style.transform = 'translateX(0)'
               onFinish()
@@ -145,6 +168,21 @@
 
         fromNodeAnimation()
         toNodeAnimation()
+      },
+      
+      autoPlayPage() {
+        window.clearInterval(this.autoPlayTimer)
+        this.autoPlayTimer = window.setInterval(() => {
+          this.clickNext()
+        }, 2000)
+      },
+      
+      onMouseEnter() {
+        window.clearInterval(this.autoPlayTimer)
+      },
+      
+      onMouseLeave() {
+        this.autoPlayPage()
       }
     },
     components: {

@@ -94,7 +94,7 @@ new Vue({
     itemSelected: "1",
     navSelected: "home",
     currentPage: 1,
-    carouselSelected: '1',
+    carouselSelected: '0',
     dateValue: new Date(),
     fileList: [],
     divVisible: false
