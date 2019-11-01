@@ -104,7 +104,6 @@
        */
       onFinish() {
         this.transitionEnd = true
-        console.log(this.selected, this.index)
         this.children.forEach((vm, n) => {
           vm.$el.style.zIndex = '1'
           vm.$el.style.transform = 'translateX(0)'
