@@ -116,43 +116,6 @@ new Vue({
   },
   mounted() {
 
-    setTimeout(() =>  {
-      this.divVisible = true
-    }, 5000)
-    let test = document.querySelector('.testDrag')
-    let startPosition, endPosition, isMoving
-    let top, left
-
-    test.addEventListener('selectstart', e => e.preventDefault())
-
-    test.addEventListener('mousedown', e => {
-      let { clientX, clientY } = e
-      startPosition = {
-        x: clientX,
-        y: clientY
-      }
-
-      top = parseInt(window.getComputedStyle(test).top)
-      left = parseInt(window.getComputedStyle(test).left)
-
-      isMoving = true
-    })
-
-    document.addEventListener('mousemove', e => {
-      if (!isMoving) return
-      const { clientX, clientY } = e
-      endPosition = {
-        x: clientX,
-        y: clientY
-      }
-
-      test.style.top = top + (endPosition.y - startPosition.y) + 'px'
-      test.style.left = left + (endPosition.x - startPosition.x) + 'px'
-    })
-
-    document.addEventListener('mouseup', e => {
-      isMoving = false
-    })
   },
   methods: {
     // inputChange(e) {
@@ -174,12 +137,14 @@ new Vue({
     //     callback(result)
     //   })
     // },
-    parseResponse(response) {
-      let obj = JSON.parse(response)
-      return `http://127.0.0.1:3000/preview/${obj.id}`
-    },
     onError(error) {
       console.log(error)
+    },
+    onSuccess(response) {
+      console.log('成功', response)
+    },
+    onComplete() {
+      console.log('上传结束')
     }
   }
 })

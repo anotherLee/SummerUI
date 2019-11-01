@@ -295,21 +295,22 @@
   <!--  <div class="datepicker" style="padding: 100px;">-->
   <!--    <s-datepicker :value.sync="dateValue"></s-datepicker>-->
   <!--  </div>-->
-  <!--  <div class="upload">-->
-  <!--    <s-uploader-->
-  <!--            accept="image/*"-->
-  <!--            action="http://127.0.0.1:3000/upload"-->
-  <!--            name="files" method="post"-->
-  <!--            :parse-response="parseResponse"-->
-  <!--            :file-list.sync="fileList"-->
-  <!--            :size-limit="1*1024*1024"-->
-  <!--            @error="onError">-->
-  <!--      <s-button icon="upload">上传</s-button>-->
-  <!--      <template v-slot:tips>-->
-  <!--        <div>只能上传 300kb 以内的png、jpg、jpeg文件</div>-->
-  <!--      </template>-->
-  <!--    </s-uploader>-->
-  <!--  </div>-->
+  
+    <div class="upload">
+      <s-uploader
+              accept="image/*"
+              action="http://127.0.0.1:3000/upload"
+              name="files"
+              method="post"
+              :size-limit="80*1024*1024"
+              multiple
+              @success="onSuccess"
+              @error="onError"
+              @complete="onComplete"
+      >
+        <s-button icon="upload">上传</s-button>
+      </s-uploader>
+    </div>
   
   <!--  <div class="sticky" style="width: 600px;  text-align: center">-->
   <!--    <p>这是段落</p>-->
@@ -377,43 +378,43 @@
   <!--    <p>这是段落</p>-->
   <!--  </div>-->
   
-  <div class="scroll">
-    <s-scroll style=" width:300px; height: 400px;">
-      <template v-slot>
-        <div v-if="divVisible" style="height: 150px; border: 5px solid red;">这是div</div>
-        <img id=img src="https://i.loli.net/2019/10/30/LvR7Z6i9xqlbCIQ.jpg" alt="">
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-        <p>这是段落</p>
-      </template>
-    </s-scroll>
-  </div>
-  
-  <div class="testDrag" style="position: fixed; right: 0; top:0; width: 100px; height: 100px; border: 1px solid red; margin-left: 100px;"></div>
+<!--  <div class="scroll">-->
+<!--    <s-scroll style=" width:300px; height: 400px;">-->
+<!--      <template v-slot>-->
+<!--        <div v-if="divVisible" style="height: 150px; border: 5px solid red;">这是div</div>-->
+<!--        <img id=img src="https://i.loli.net/2019/10/30/LvR7Z6i9xqlbCIQ.jpg" alt="">-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--        <p>这是段落</p>-->
+<!--      </template>-->
+<!--    </s-scroll>-->
+<!--  </div>-->
+
+<!--  <div class="testDrag" style="position: fixed; right: 0; top:0; width: 100px; height: 100px; border: 1px solid red; margin-left: 100px;"></div>-->
 </div>
 </body>
 </html>

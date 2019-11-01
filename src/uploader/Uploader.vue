@@ -4,18 +4,13 @@
       <slot></slot>
     </div>
     <ol class="s-file-list">
-      <li v-for="file in fileList">
-        <template v-if="file.status === 'uploading'">
-          <Icon class="loading" name="loading"></Icon>
-        </template>
-        <template v-else-if="file.type.indexOf('image') === 0">
-          <img class="s-image" :src="file.url" alt="" width="32" height="32">
-        </template>
-        <template v-else>
-          <div class="default-image"></div>
-        </template>
+      <li v-for="file in files">
         <span class="filename" :class="{[file.status]: file.status}">{{ file.name }}</span>
-        <button class="s-uploader-remove" @click="onRemove(file)">×</button>
+        <template v-if="true">
+          <div class="s-progress-wrapper" v-if="file.progress !== 1">
+            <div class="s-progress" :style="{ width: file.progress + '%' }"></div>
+          </div>
+        </template>
       </li>
     </ol>
     <div ref="inputWrapper" style="width: 0; height: 0; overflow: hidden"></div>
@@ -31,58 +26,45 @@
       name: { type: String, required: true },
       action: { type: String, required: true },
       method: { type: String, default: 'post' },
-      parseResponse: { type: Function, required: true },
-      fileList: { type: Array, default: () => [] },
-      sizeLimit: { type: Number }
+      sizeLimit: { type: Number },
+      multiple: { type: Boolean, default: false }
     },
     data() {
       return {
-        uploadingFile: {}
+        files: [],
+        finishedFiles: [], // 不管 status 如何，已经结束的 files
       }
     },
     methods: {
+      /*
+       * 点击上传按钮，创建 input 并模拟点击进行上传
+       */
       onClickUpload() {
         const input = this.createInput()
         input.addEventListener('change', () => {
-          // this.uploadFile(input.files[0])
           this.uploadFiles(input.files)
           input.remove()
         })
         input.click()
       },
 
+      /*
+       * 创建 input type=file
+       */
       createInput() {
         this.$refs.inputWrapper.innerHTML = ''
         let input = document.createElement('input')
         input.type = 'file'
-        input.multiple = true
+        if (this.multiple) {
+          input.multiple = true
+        }
         this.$refs.inputWrapper.appendChild(input)
         return input
       },
-
-      beforeUploadFile(rawFile) {
-        let { name, size, type } = rawFile
-
-        if (size > this.sizeLimit) {
-          this.$emit('error', '文件尺寸过大！')
-          return false
-        }
-
-        while (this.fileList.find(file => file.name === name)) {
-          const dotIndex = name.lastIndexOf('.')
-          let nameWithoutExtension, extension
-          if (dotIndex > -1) {
-            nameWithoutExtension = name.substring(0, dotIndex)
-            extension = name.substring(dotIndex)
-          }
-          name = nameWithoutExtension + '(1)' + extension
-        }
-
-        this.uploadingFile = { name, size, type, status: 'uploading' }
-        this.$emit('update:fileList', [...this.fileList, this.uploadingFile])
-        return true
-      },
-
+      
+      /*
+       * 使用 FormData 上传文件
+       */
       uploadFile(rawFile) {
         let bool = this.beforeUploadFile(rawFile)
         if (!bool) return
@@ -90,73 +72,91 @@
         formData.append(this.name, rawFile)
 
         this.doUploadFile(formData, (response) => {
-          let url = this.parseResponse(response)
+          console.log('上传成功', response)
           this.afterUploadFile(url)
         }, (xhr) => {
           let error = ''
           if (xhr.status === 0) {
             error = 'network error'
           }
-          console.log(xhr)
           this.uploadError(error)
         })
       },
-
+      
       uploadFiles(files) {
-        let formData = new FormData()
         for (let i = 0; i < files.length; ++i) {
-          formData.append(this.name, files[i])
+          const rawFile = files[i]
+          let { name, type, size } = rawFile
+          if (this.beforeUploadFile(rawFile)) {
+            const current = { name, type, size, status: 'uploading', progress: 0 }
+            this.files.push(current)
+            let formData = new FormData()
+            formData.append(this.name, rawFile)
+            
+            this.doUploadFile(formData, current, (currentFile, response) => {
+              this.$set(currentFile, 'status', 'completed')
+              this.finishedFiles.push(currentFile)
+              this.$emit('success', response)
+              this.judgeAllFinished()
+            }, (currentFile, xhr) => {
+              this.$set(currentFile, 'status', 'error')
+              this.finishedFiles.push(currentFile)
+              this.$emit('error', xhr)
+              this.judgeAllFinished()
+            })
+          } else {
+            this.files.push({ name, type, size, status: 'error', progress: 100 })
+            this.finishedFiles.push({ name, type, size, status: 'error', progress: 100 })
+            this.judgeAllFinished()
+          }
         }
-        let xhr = new XMLHttpRequest()
-        xhr.open(this.method, this.action)
-        xhr.onload = () => {
-        
+      },
+      
+      judgeAllFinished() {
+        if (this.finishedFiles.length === this.files.length) {
+          this.$emit('complete')
         }
-        xhr.send(formData)
       },
 
-      afterUploadFile(url) {
-        let uploadingFile = this.fileList.find(file => file === this.uploadingFile)
-        let index = this.fileList.indexOf(uploadingFile)
-        let copy = JSON.parse(JSON.stringify(uploadingFile))
-        let copyFileList = JSON.parse(JSON.stringify(this.fileList))
-        copy.url = url
-        copy.status = 'success'
-        copyFileList.splice(index, 1, copy)
-        this.$emit('update:fileList', copyFileList)
-        this.uploadingFile = {}
+      /*
+       * 当图片被浏览器读取但没上传到服务器时，对图片进行处理
+       */
+      beforeUploadFile(rawFile) {
+        let { name, size, type } = rawFile
+
+        if (size > this.sizeLimit) {
+          this.$emit('error', `${name} 文件尺寸过大！`)
+          return false
+        }
+        return true
       },
 
-      doUploadFile(formData, success, fail) {
+      /*
+       * 使用 xhr 上传，并进行回调
+       */
+      doUploadFile(formData, currentFile, success, fail) {
         const xhr = new XMLHttpRequest()
         xhr.open(this.method, this.action)
         xhr.onload = () => {
-          success(xhr.response)
+          if (xhr.status === 200) {
+            success(currentFile, xhr.response)
+          } else {
+            fail(currentFile, xhr)
+          }
         }
+        
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            let progress = e.loaded / e.total
+            this.$set(currentFile, 'progress', progress)
+          }
+        }
+        
         xhr.onerror = () => {
           fail(xhr)
         }
         xhr.send(formData)
       },
-
-      uploadError(error) {
-        const file = this.fileList.find(file => file === this.uploadingFile)
-        const index = this.fileList.indexOf(file)
-        const copyFile = JSON.parse(JSON.stringify(file))
-        const copyFileList = JSON.parse(JSON.stringify(this.fileList))
-        copyFile.status = 'failed'
-        copyFileList.splice(index, 1, copyFile)
-        this.$emit('update:fileList', copyFileList)
-        this.$emit('error', error)
-        this.uploadingFile = {}
-      },
-
-      onRemove(file) {
-        let copy = [...this.fileList]
-        const index = copy.indexOf(file)
-        copy.splice(index, 1)
-        this.$emit('update:fileList', copy)
-      }
     },
     components: {
       Icon
@@ -178,11 +178,10 @@
   .s-uploader {
     .s-file-list {
       list-style: none;
-      
+      margin-top: 10px;
       li {
-        display: flex; align-items: center;
-        margin: 8px 0;
-        border: 1px solid darken($grey, 10%);
+        position: relative;
+        margin: 8px 0; padding-bottom: 8px;
         
         .loading {
           width: 32px; height: 32px;
@@ -198,6 +197,8 @@
         }
         
         .filename {
+          display: inline-block;
+          font-size: 14px;
           &.success {
             color: green;
           }
@@ -207,15 +208,13 @@
           }
         }
         
-        .s-uploader-remove {
-          display: inline-flex; justify-content: center; align-items: center;
-          vertical-align: middle;
-          width: 24px; height: 24px;
-          margin-left: auto;
-          font-size: 16px;
-          border: 1px solid $border-color;
-          border-radius: $border-radius;
-          background-color: #fff;
+        .s-progress-wrapper {
+          position: absolute; bottom: 0px; width: 100%;
+          height: 2px; background-color: #ddd;
+          .s-progress {
+            height: 100%;
+            background-color: #2d8cf0;
+          }
         }
       }
     }
