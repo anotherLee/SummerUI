@@ -178,11 +178,7 @@
         .filename {
           display: inline-block;
           font-size: 14px;
-          &.success {
-            color: green;
-          }
-          
-          &.failed {
+          &.error {
             color: red;
           }
         }
