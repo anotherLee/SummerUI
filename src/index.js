@@ -32,6 +32,7 @@ import DatePicker from "./datepicker/DatePicker"
 import Uploader from "./uploader/Uploader"
 import Sticky from "./sticky/Sticky"
 import Scroll from "./scroll/Scroll"
+import Table from "./table/Table"
 import Vue from 'vue'
 import db from './db'
 
@@ -71,6 +72,7 @@ Vue.component('s-datepicker', DatePicker)
 Vue.component('s-uploader', Uploader)
 Vue.component('s-sticky', Sticky)
 Vue.component('s-scroll', Scroll)
+Vue.component('s-table', Table)
 Vue.use(plugin)
 
 function ajax(parent_id = 0) {
@@ -97,7 +99,20 @@ new Vue({
     carouselSelected: '0',
     dateValue: new Date(),
     fileList: [],
-    divVisible: false
+    divVisible: false,
+    columns: [
+      { text: '姓名', field: 'name' },
+      { text: '分数', field: 'score' }
+    ],
+    tableData: [
+      { id: 1, name: '张明', score: 100 },
+      { id: 2, name: '李二', score: 100 },
+      { id: 3, name: '王刚', score: 100 },
+      { id: 4, name: '赵四', score: 100 },
+      { id: 5, name: '王五', score: 100 },
+      { id: 6, name: '尼古拉斯', score: 100 },
+    ],
+    tableSelected: []
   },
   created() {
     // ajax(0).then(res => {
@@ -145,6 +160,9 @@ new Vue({
     },
     onComplete() {
       console.log('上传结束')
+    },
+    itemChanged(obj) {
+      console.log(obj)
     }
   }
 })

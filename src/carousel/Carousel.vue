@@ -71,15 +71,27 @@
     },
     methods: {
       clickPrev() {
-        this.direction = -1
-        this.lastPageIndex = this.index
-        this.$emit('update:selected', this.names[this.prevIndex])
+        if (!this.transitionEnd) {
+          window.cancelAnimationFrame(this.timer1)
+          window.cancelAnimationFrame(this.timer2)
+          this.onFinish()
+        } else {
+          this.direction = -1
+          this.lastPageIndex = this.index
+          this.$emit('update:selected', this.names[this.prevIndex])
+        }
       },
 
       clickNext() {
-        this.direction = 1
-        this.lastPageIndex = this.index
-        this.$emit('update:selected', this.names[this.nextIndex])
+        if (!this.transitionEnd) {
+          window.cancelAnimationFrame(this.timer1)
+          window.cancelAnimationFrame(this.timer2)
+          this.onFinish()
+        } else {
+          this.direction = 1
+          this.lastPageIndex = this.index
+          this.$emit('update:selected', this.names[this.nextIndex])
+        }
       },
 
       clickDot(i) {

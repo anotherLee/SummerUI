@@ -223,24 +223,24 @@
   <!--    </s-slides>-->
   <!--  </div>-->
   
-    <div class="carousel">
-      <s-carousel :selected.sync="carouselSelected">
-        <template v-slot>
-          <s-carousel-item name="0">
-            <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>
-          </s-carousel-item>
-          <s-carousel-item name="1">
-            <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a>
-          </s-carousel-item>
-          <s-carousel-item name="2">
-            <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a>
-          </s-carousel-item>
-          <s-carousel-item name="3">
-            <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a>
-          </s-carousel-item>
-        </template>
-      </s-carousel>
-    </div>
+<!--    <div class="carousel">-->
+<!--      <s-carousel :selected.sync="carouselSelected">-->
+<!--        <template v-slot>-->
+<!--          <s-carousel-item name="0">-->
+<!--            <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a>-->
+<!--          </s-carousel-item>-->
+<!--          <s-carousel-item name="1">-->
+<!--            <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a>-->
+<!--          </s-carousel-item>-->
+<!--          <s-carousel-item name="2">-->
+<!--            <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a>-->
+<!--          </s-carousel-item>-->
+<!--          <s-carousel-item name="3">-->
+<!--            <a class="imgContainer" href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a>-->
+<!--          </s-carousel-item>-->
+<!--        </template>-->
+<!--      </s-carousel>-->
+<!--    </div>-->
   
   <!--  <div>{{ navSelected }}</div>-->
   <!--  <div class="nav">-->
@@ -417,6 +417,15 @@
 <!--  </div>-->
 
 <!--  <div class="testDrag" style="position: fixed; right: 0; top:0; width: 100px; height: 100px; border: 1px solid red; margin-left: 100px;"></div>-->
+  
+  <div class="table" style="margin: 50px;">
+    {{ tableSelected }}
+    <s-table :columns="columns" :data-source="tableData" number-visible border-visible @itemchanged="itemChanged" :selected-items.sync="tableSelected"></s-table>
+  </div>
+  
+  <div class="table" style="margin: 50px;">
+    <s-table :columns="columns" :data-source="tableData" number-visible border-visible compact :striped="false"></s-table>
+  </div>
 </div>
 </body>
 </html>
