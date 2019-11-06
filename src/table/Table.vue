@@ -1,38 +1,40 @@
 <template>
-  <div class="s-table-wrapper">
-    <table class="s-table" :class="{ bordered: borderVisible, compact, striped }">
-      <thead>
-      <tr>
-        <th v-if="numberVisible">
-          <input type="checkbox" ref="allCheck" :checked="allSelected" @change="onChangeAll($event)">
-        </th>
-        <th class="s-table-header" v-for="column in columns" :key="column.field">
-          <div class="s-table-header-inner">
-            {{ column.text }}
-            <span
-                    v-if="orderBy.hasOwnProperty(column.field)"
-                    class="s-table-sorter" @click="changeOrderBy(column.field)">
+  <div class="s-table-wrapper" ref="wrapper">
+    <div :style="{ height: height + 'px', overflow: 'auto' }">
+      <table class="s-table" :class="{ bordered: borderVisible, compact, striped }" ref="table">
+        <thead>
+        <tr>
+          <th v-if="numberVisible">
+            <input type="checkbox" ref="allCheck" :checked="allSelected" @change="onChangeAll($event)">
+          </th>
+          <th class="s-table-header" v-for="column in columns" :key="column.field">
+            <div class="s-table-header-inner">
+              {{ column.text }}
+              <span
+                      v-if="orderBy.hasOwnProperty(column.field)"
+                      class="s-table-sorter" @click="changeOrderBy(column.field)">
               <Icon name="ascend" :class="{active: orderBy[column.field] === 'ascend'}"></Icon>
               <Icon name="descend" :class="{active: orderBy[column.field] === 'descend'}"></Icon>
             </span>
-          </div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(item, index) in dataSource">
-        <td v-if="numberVisible">
-          <input
-                  type="checkbox"
-                  :checked="selectedHasSelf(item)"
-                  @change="onChangeItem(item, index, $event)">
-        </td>
-        <template v-for="column in columns">
-          <td :key="">{{ item[column.field] }}</td>
-        </template>
-      </tr>
-      </tbody>
-    </table>
+            </div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item, index) in dataSource">
+          <td v-if="numberVisible">
+            <input
+                    type="checkbox"
+                    :checked="selectedHasSelf(item)"
+                    @change="onChangeItem(item, index, $event)">
+          </td>
+          <template v-for="column in columns">
+            <td :key="">{{ item[column.field] }}</td>
+          </template>
+        </tr>
+        </tbody>
+      </table>
+    </div>
     <div v-if="loading" class="s-table-loading">
       <Icon name="loading"></Icon>
     </div>
@@ -106,17 +108,27 @@
         type: Object,
         default: () => ({})
       },
-      
+
       /*
        * loading
        */
       loading: {
         type: Boolean,
         default: false
+      },
+
+      /*
+       * height
+       */
+      height: {
+        type: [Number, String]
       }
     },
     data() {
-      return {}
+      return {
+        copyTable: undefined,
+        onWindowResize: undefined
+      }
     },
     computed: {
       /*
@@ -147,6 +159,20 @@
           allCheck.indeterminate = false
         }
       }
+    },
+    mounted() {
+      const { wrapper, table } = this.$refs
+      this.copyTable = table.cloneNode(true)
+      this.copyTable.classList.add('s-table-copy')
+      Array.from(this.copyTable.children).map(node => {
+        if (node.tagName.toLowerCase() !== 'thead') {
+          node.remove()
+        }
+      })
+      wrapper.appendChild(this.copyTable)
+      this.updateHead()
+      this.onWindowResize = () => this.updateHead()
+      window.addEventListener('resize', this.onWindowResize)
     },
     methods: {
       /*
@@ -193,10 +219,32 @@
           copy[field] = 'ascend'
         }
         this.$emit('update:orderBy', copy)
+      },
+      
+      /*
+       * 更新复制的 header 里元素的宽度
+       */
+      updateHead() {
+        const oldHead = this.$refs.table.querySelector('thead')
+        const copyHead = this.copyTable.querySelector('thead')
+        const oldThs = Array.from(oldHead.querySelectorAll('th'))
+        const newThs = Array.from(copyHead.querySelectorAll('th'))
+        oldThs.map((t,i) => {
+          const {width} = t.getBoundingClientRect()
+          if (i === oldThs.length - 1) {
+            newThs[i].style.width = 'auto'
+          } else {
+            newThs[i].style.width = `${width}px`
+          }
+        })
       }
     },
     components: {
       Icon
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.onWindowResize)
+      this.copyTable.remove()
     }
   }
 </script>
@@ -207,6 +255,7 @@
   $grey: darken($grey, 20%);
   .s-table-wrapper {
     position: relative;
+    
     .s-table {
       width: 100%;
       border-collapse: collapse;
@@ -259,7 +308,8 @@
       &-loading {
         position: absolute; top: 0; left: 0; right: 0; bottom: 0;
         display: flex; justify-content: center; align-items: center;
-        background-color: rgba(255,255,255, 0.7);
+        background-color: rgba(255, 255, 255, 0.7);
+        
         svg {
           width: 2em; height: 2em;
           @include spin;
@@ -291,6 +341,11 @@
           }
         }
       }
+    }
+    
+    .s-table-copy {
+      position: absolute; left: 0; top: 0;
+      background-color: #fff;
     }
   }
 </style>
