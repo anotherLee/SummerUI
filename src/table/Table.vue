@@ -33,6 +33,9 @@
       </tr>
       </tbody>
     </table>
+    <div v-if="loading" class="s-table-loading">
+      <Icon name="loading"></Icon>
+    </div>
   </div>
 </template>
 
@@ -102,6 +105,14 @@
       orderBy: {
         type: Object,
         default: () => ({})
+      },
+      
+      /*
+       * loading
+       */
+      loading: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -195,6 +206,7 @@
   
   $grey: darken($grey, 20%);
   .s-table-wrapper {
+    position: relative;
     .s-table {
       width: 100%;
       border-collapse: collapse;
@@ -217,7 +229,7 @@
               fill: darken($grey, 15%);
               
               &.active {
-                fill: red;
+                fill: #333;
               }
               
               &:nth-child(1) {
@@ -241,6 +253,16 @@
         
         td, th {
           border: 1px solid $grey;
+        }
+      }
+      
+      &-loading {
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        display: flex; justify-content: center; align-items: center;
+        background-color: rgba(255,255,255, 0.7);
+        svg {
+          width: 2em; height: 2em;
+          @include spin;
         }
       }
       
