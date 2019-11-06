@@ -113,7 +113,10 @@ new Vue({
       { id: 6, name: '尼古拉斯', score: 100 },
     ],
     tableSelected: [],
-    tableSelected2: []
+    tableSelected2: [],
+    orderBy: {
+      name: 'ascend'
+    }
   },
   created() {
     // ajax(0).then(res => {

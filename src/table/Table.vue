@@ -6,7 +6,17 @@
         <th v-if="numberVisible">
           <input type="checkbox" ref="allCheck" :checked="allSelected" @change="onChangeAll($event)">
         </th>
-        <th v-for="column in columns" :key="column.field">{{ column.text }}</th>
+        <th class="s-table-header" v-for="column in columns" :key="column.field">
+          <div class="s-table-header-inner">
+            {{ column.text }}
+            <span
+                    v-if="orderBy.hasOwnProperty(column.field)"
+                    class="s-table-sorter" @click="changeOrderBy(column.field)">
+              <Icon name="ascend" :class="{active: orderBy[column.field] === 'ascend'}"></Icon>
+              <Icon name="descend" :class="{active: orderBy[column.field] === 'descend'}"></Icon>
+            </span>
+          </div>
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -27,13 +37,21 @@
 </template>
 
 <script>
+  import Icon from '../icon/Icon'
+
   export default {
     name: 's-table',
     props: {
+      /*
+       * 表头
+       */
       columns: {
         type: Array,
         required: true
       },
+      /*
+       * 所有的数据
+       */
       dataSource: {
         type: Array,
         required: true,
@@ -42,32 +60,57 @@
           return noIdItems.length === 0
         }
       },
+      /*
+       * 被选中的数据
+       */
       selectedItems: {
         type: Array,
         required: true,
         default: () => []
       },
+      /*
+       * 每行第一项要不要
+       */
       numberVisible: {
         type: Boolean,
         default: false
       },
+      /*
+       * 外边框
+       */
       borderVisible: {
         type: Boolean,
         default: false
       },
+      /*
+       * 是否紧凑
+       */
       compact: {
         type: Boolean,
         default: false
       },
+      /*
+       * 是否有斑马纹
+       */
       striped: {
         type: Boolean,
         default: true
+      },
+      /*
+       * 排序规则
+       */
+      orderBy: {
+        type: Object,
+        default: () => ({})
       }
     },
     data() {
       return {}
     },
     computed: {
+      /*
+       * 判断是否全部选中
+       */
       allSelected() {
         const a = this.selectedItems.map(item => item.id).sort()
         const b = this.dataSource.map(item => item.id).sort()
@@ -95,6 +138,9 @@
       }
     },
     methods: {
+      /*
+       * 选中或取消一项
+       */
       onChangeItem(item, index, $event) {
         let selected = $event.target.checked
         let copy = JSON.parse(JSON.stringify(this.selectedItems))
@@ -106,15 +152,40 @@
         this.$emit('update:selectedItems', copy)
       },
 
+      /*
+       * 选中或者取消全部
+       */
       onChangeAll(e) {
         let selected = e.target.checked
         let all = JSON.parse(JSON.stringify(this.dataSource))
         this.$emit('update:selectedItems', selected ? all : [])
       },
 
+      /*
+       * 判断选中的 selectedItems 中是否有自己
+       */
       selectedHasSelf(selfItem) {
         return this.selectedItems.find(ele => ele.id === selfItem.id)
+      },
+
+      /*
+       * 点击排序
+       */
+      changeOrderBy(field) {
+        const copy = JSON.parse(JSON.stringify(this.orderBy))
+        let oldValue = copy[field]
+        if (oldValue === 'ascend') {
+          copy[field] = 'descend'
+        } else if (oldValue === 'descend') {
+          copy[field] = true
+        } else {
+          copy[field] = 'ascend'
+        }
+        this.$emit('update:orderBy', copy)
       }
+    },
+    components: {
+      Icon
     }
   }
 </script>
@@ -129,6 +200,39 @@
       border-collapse: collapse;
       border-spacing: 0;
       border-bottom: 1px solid $grey;
+      
+      &-header {
+        &-inner {
+          display: inline-flex; align-items: center;
+          height: 100%; width: 100%;
+          
+          .s-table-sorter {
+            display: inline-flex;
+            flex-direction: column;
+            margin-left: 0.2em;
+            cursor: pointer;
+            
+            svg {
+              width: 8px; height: 8px;
+              fill: darken($grey, 15%);
+              
+              &.active {
+                fill: red;
+              }
+              
+              &:nth-child(1) {
+                position: relative;
+                top: 1px;
+              }
+              
+              &:nth-child(2) {
+                position: relative;
+                bottom: 1px;
+              }
+            }
+          }
+        }
+      }
       
       &.bordered {
         border-top: 1px solid $grey;
