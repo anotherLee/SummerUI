@@ -112,7 +112,8 @@ new Vue({
       { id: 5, name: '王五', score: 100 },
       { id: 6, name: '尼古拉斯', score: 100 },
     ],
-    tableSelected: []
+    tableSelected: [],
+    tableSelected2: []
   },
   created() {
     // ajax(0).then(res => {

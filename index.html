@@ -420,11 +420,24 @@
   
   <div class="table" style="margin: 50px;">
     {{ tableSelected }}
-    <s-table :columns="columns" :data-source="tableData" number-visible border-visible @itemchanged="itemChanged" :selected-items.sync="tableSelected"></s-table>
+    <s-table
+            :columns="columns"
+            :data-source="tableData"
+            number-visible
+            border-visible
+            @itemchanged="itemChanged"
+            :selected-items.sync="tableSelected"></s-table>
   </div>
   
   <div class="table" style="margin: 50px;">
-    <s-table :columns="columns" :data-source="tableData" number-visible border-visible compact :striped="false"></s-table>
+    <s-table
+            :columns="columns"
+            :data-source="tableData"
+            number-visible
+            border-visible
+            compact
+            :selected-items.sync="tableSelected2"
+            :striped="false"></s-table>
   </div>
 </div>
 </body>
