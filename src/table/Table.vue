@@ -52,7 +52,7 @@
           
           <tr v-if="item[expandField] && expandedIds.includes(item.id)" :key="`${item.id}-expand`">
             <td style="border: none"></td>
-            <td :colspan="columns.length + 1" style="border: none">
+            <td :colspan="colspan(columns.length)" style="border: none">
               {{ item[expandField] }}
             </td>
           </tr>
@@ -269,6 +269,17 @@
         } else {
           this.expandedIds.push(id)
         }
+      },
+      
+      colspan(n) {
+        let c = n
+        if (this.checkable) {
+          c++
+        }
+        if (this.$scopedSlots.default) {
+          c++
+        }
+        return c
       },
 
       /*
