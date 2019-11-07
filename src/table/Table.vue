@@ -19,6 +19,7 @@
             </span>
             </div>
           </th>
+          <th></th>
         </tr>
         </thead>
         
@@ -42,6 +43,9 @@
             <template v-for="column in columns">
               <td :style="{width: column.width + 'px'}">{{ item[column.field] }}</td>
             </template>
+            <td>
+              <slot :item="item"></slot>
+            </td>
           </tr>
           
           <tr v-if="item[expandField] && expandedIds.includes(item.id)" :key="`${item.id}-expand`">

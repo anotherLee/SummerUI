@@ -102,7 +102,7 @@ new Vue({
     divVisible: false,
     columns: [
       { text: '姓名', field: 'name', width: 200 },
-      { text: '分数', field: 'score' }
+      { text: '分数', field: 'score', width: 200 }
     ],
     tableData: [
       { id: 1, name: '张明', score: 100, description: 'xxx' },
@@ -180,6 +180,12 @@ new Vue({
     },
     itemChanged(obj) {
       console.log(obj)
+    },
+    edit(item){
+      console.log(item)
+    },
+    view(item) {
+      console.log(item)
     }
   }
 })
