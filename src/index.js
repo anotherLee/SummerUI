@@ -105,8 +105,8 @@ new Vue({
       { text: '分数', field: 'score' }
     ],
     tableData: [
-      { id: 1, name: '张明', score: 100 },
-      { id: 2, name: '李二', score: 100 },
+      { id: 1, name: '张明', score: 100, description: 'xxx' },
+      { id: 2, name: '李二', score: 100, description: 'yyy' },
       { id: 3, name: '王刚', score: 100 },
       { id: 4, name: '赵四', score: 100 },
       { id: 5, name: '王五', score: 100 },

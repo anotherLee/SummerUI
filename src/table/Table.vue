@@ -4,7 +4,8 @@
       <table class="s-table" :class="{ bordered: borderVisible, compact, striped }" ref="table">
         <thead>
         <tr>
-          <th v-if="numberVisible" :style="{width: '50px'}">
+          <th style="width: 50px" class="s-table-center"></th>
+          <th v-if="numberVisible" :style="{width: '50px'}" class="s-table-center">
             <input type="checkbox" ref="allCheck" :checked="allSelected" @change="onChangeAll($event)">
           </th>
           <th class="s-table-header" :style="{width:`${column.width}px`}" v-for="column in columns" :key="column.field">
@@ -20,18 +21,36 @@
           </th>
         </tr>
         </thead>
+        
         <tbody>
-        <tr v-for="(item, index) in dataSource" :key="item.id">
-          <td :style="{width: '50px'}" v-if="numberVisible">
-            <input
-                    type="checkbox"
-                    :checked="selectedHasSelf(item)"
-                    @change="onChangeItem(item, index, $event)">
-          </td>
-          <template v-for="column in columns">
-            <td :style="{width: column.width + 'px'}">{{ item[column.field] }}</td>
-          </template>
-        </tr>
+        <template v-for="(item, index) in dataSource">
+          <tr :key="item.id">
+            <td style="width: 50px;" class="s-table-center">
+              <Icon
+                      v-if="item[expandField]"
+                      @click.native="expandItem(item.id)"
+                      class="s-table-expand-icon"
+                      :class="{ expand: expandedIds.includes(item.id) }"
+                      name="right"></Icon>
+            </td>
+            <td :style="{width: '50px'}" class="s-table-center" v-if="numberVisible">
+              <input
+                      type="checkbox"
+                      :checked="selectedHasSelf(item)"
+                      @change="onChangeItem(item, index, $event)">
+            </td>
+            <template v-for="column in columns">
+              <td :style="{width: column.width + 'px'}">{{ item[column.field] }}</td>
+            </template>
+          </tr>
+          
+          <tr v-if="item[expandField] && expandedIds.includes(item.id)" :key="`${item.id}-expand`">
+            <td style="border: none"></td>
+            <td :colspan="columns.length + 1" style="border: none">
+              {{ item[expandField] }}
+            </td>
+          </tr>
+        </template>
         </tbody>
       </table>
     </div>
@@ -118,15 +137,23 @@
       },
 
       /*
-       * height
+       * height 用做滚动
        */
       height: {
         type: [Number, String]
+      },
+
+      /*
+       * expand-key 点击展开的字段说明
+       */
+      expandField: {
+        type: String
       }
     },
     data() {
       return {
         copyTable: undefined,
+        expandedIds: []
       }
     },
     computed: {
@@ -220,6 +247,18 @@
         }
         this.$emit('update:orderBy', copy)
       },
+
+      /*
+       * 点击展开或者收起
+       */
+      expandItem(id) {
+        const index = this.expandedIds.findIndex(n => n === id)
+        if (index > -1) {
+          this.expandedIds.splice(index, 1)
+        } else {
+          this.expandedIds.push(id)
+        }
+      }
     },
     components: {
       Icon
@@ -305,6 +344,22 @@
         padding: 8px;
         border-bottom: 1px solid $grey;
       }
+      
+      &-expand-icon {
+        height: 12px; width: 12px;
+        cursor: pointer;
+        transform: rotate(0);
+        transition: transform 0.1s linear;
+        
+        &.expand {
+          transform: rotate(90deg);
+          transition: transform 0.1s linear;
+        }
+      }
+      
+      .s-table-center {
+        text-align: center;
+      }
     }
     
     .s-table.compact {
@@ -326,6 +381,7 @@
         }
       }
     }
+    
     
     .s-table-copy {
       position: absolute; left: 0; top: 0;
