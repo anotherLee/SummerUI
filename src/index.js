@@ -101,7 +101,7 @@ new Vue({
     fileList: [],
     divVisible: false,
     columns: [
-      { text: '姓名', field: 'name' },
+      { text: '姓名', field: 'name', width: 200 },
       { text: '分数', field: 'score' }
     ],
     tableData: [
