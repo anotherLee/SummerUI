@@ -425,8 +425,9 @@
             :data-source="tableData"
             number-visible
             border-visible
-            expand-field="description"
             @itemchanged="itemChanged"
+            expand-field="description"
+            :checkable = "true"
             :height="400"
             :order-by.sync="orderBy"
             :selected-items.sync="tableSelected"></s-table>

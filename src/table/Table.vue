@@ -4,8 +4,8 @@
       <table class="s-table" :class="{ bordered: borderVisible, compact, striped }" ref="table">
         <thead>
         <tr>
-          <th style="width: 50px" class="s-table-center"></th>
-          <th v-if="numberVisible" :style="{width: '50px'}" class="s-table-center">
+          <th v-if="expandField" style="width: 50px" class="s-table-center"></th>
+          <th v-if="checkable" :style="{width: '50px'}" class="s-table-center">
             <input type="checkbox" ref="allCheck" :checked="allSelected" @change="onChangeAll($event)">
           </th>
           <th class="s-table-header" :style="{width:`${column.width}px`}" v-for="column in columns" :key="column.field">
@@ -25,7 +25,7 @@
         <tbody>
         <template v-for="(item, index) in dataSource">
           <tr :key="item.id">
-            <td style="width: 50px;" class="s-table-center">
+            <td v-if="expandField" style="width: 50px;" class="s-table-center">
               <Icon
                       v-if="item[expandField]"
                       @click.native="expandItem(item.id)"
@@ -33,7 +33,7 @@
                       :class="{ expand: expandedIds.includes(item.id) }"
                       name="right"></Icon>
             </td>
-            <td :style="{width: '50px'}" class="s-table-center" v-if="numberVisible">
+            <td :style="{width: '50px'}" class="s-table-center" v-if="checkable">
               <input
                       type="checkbox"
                       :checked="selectedHasSelf(item)"
@@ -93,13 +93,6 @@
         default: () => []
       },
       /*
-       * 每行第一项要不要
-       */
-      numberVisible: {
-        type: Boolean,
-        default: false
-      },
-      /*
        * 外边框
        */
       borderVisible: {
@@ -148,6 +141,14 @@
        */
       expandField: {
         type: String
+      },
+      
+      /*
+       * checkable 是否有 checkbox
+       */
+      checkable: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
