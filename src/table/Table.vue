@@ -19,7 +19,7 @@
             </span>
             </div>
           </th>
-          <th></th>
+          <th v-if="$scopedSlots.default" ref="actionHeader"></th>
         </tr>
         </thead>
         
@@ -43,8 +43,10 @@
             <template v-for="column in columns">
               <td :style="{width: column.width + 'px'}">{{ item[column.field] }}</td>
             </template>
-            <td>
-              <slot :item="item"></slot>
+            <td v-if="$scopedSlots.default">
+              <div class="s-table-action" ref="action">
+                <slot :item="item"></slot>
+              </div>
             </td>
           </tr>
           
@@ -146,7 +148,7 @@
       expandField: {
         type: String
       },
-      
+
       /*
        * checkable 是否有 checkbox
        */
@@ -205,6 +207,10 @@
         }
       })
       wrapper.appendChild(this.copyTable)
+
+      if (this.$scopedSlots.default) {
+        this.setActionWidth()
+      }
     },
     methods: {
       /*
@@ -263,6 +269,37 @@
         } else {
           this.expandedIds.push(id)
         }
+      },
+
+      /*
+       * 如果 action 存在则设置宽度
+       */
+      setActionWidth() {
+        const { actionHeader } = this.$refs
+        const firstActionDiv = this.$refs.action[0]
+        const { width } = firstActionDiv.getBoundingClientRect()
+        const parent = firstActionDiv.parentNode
+        const style = window.getComputedStyle(parent)
+        const paddingLeft = style.getPropertyValue('padding-left')
+        const paddingRight = style.getPropertyValue('padding-right')
+        const borderLeft = style.getPropertyValue('border-left-width')
+        const borderRight = style.getPropertyValue('border-right-width')
+        const width2 = width + parseInt(paddingLeft) + parseInt(paddingRight) + parseInt(borderLeft) + parseInt(borderRight)
+        actionHeader.style.width = width2 + this.getScrollbarWidth() + 'px'
+        console.log(actionHeader)
+        this.$refs.action.map(a => {
+          a.parentNode.style.width = width2 + 'px'
+        })
+      },
+      
+      /*
+       * 计算滚动条宽度
+       */
+      getScrollbarWidth() {
+        const { inner, table } = this.$refs
+        const { width: innerWidth } = inner.getBoundingClientRect()
+        const { width: tableWidth } = table.getBoundingClientRect()
+        return innerWidth - tableWidth
       }
     },
     components: {
@@ -364,6 +401,10 @@
       
       .s-table-center {
         text-align: center;
+      }
+      
+      &-action {
+        display: inline-block;
       }
     }
     
