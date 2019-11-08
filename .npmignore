@@ -5,8 +5,11 @@ notes/
 static/
 test/
 .travis.yml
+.idea/
 deploy.sh
 index.html
 webpack.config.dev.js
 webpack.config.prod.js
 webpack.test.js
+karma.conf.js
+
