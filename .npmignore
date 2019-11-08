@@ -1,0 +1,12 @@
+src/
+docs/
+node_modules/
+notes/
+static/
+test/
+.travis.yml
+deploy.sh
+index.html
+webpack.config.dev.js
+webpack.config.prod.js
+webpack.test.js
